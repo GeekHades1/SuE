@@ -13,7 +13,6 @@ import org.hades.sue.base.BaseFragment;
 import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.Test1Fragment;
 import org.hades.sue.fragment.Test2Fragment;
-import org.hades.sue.fragment.Test3Fragment;
 import org.hades.sue.presenter.IHomePresenter;
 
 import butterknife.BindView;
@@ -23,13 +22,12 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private final String TAG = HomeActivity.class.getSimpleName();
 
-    private BaseFragment     fragments[] = new BaseFragment[4];
+    private BaseFragment     fragments[] = new BaseFragment[3];
 
     private HomeFragment   mHomeFragment = null;
 
     private Test1Fragment test1 = null;
     private Test2Fragment test2 = null;
-    private Test3Fragment test3 = null;
 
     private int           mCurPage = 0;
 
@@ -71,17 +69,14 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Log.d(TAG,"click + "+item.getItemId());
         switch (item.getItemId()){
-            case R.id.action_news:
-                mCurPage = 1;
-                break;
             case R.id.action_home:
                 mCurPage = 0;
                 break;
             case R.id.action_body_check:
-                mCurPage = 2;
+                mCurPage = 1;
                 break;
             case R.id.action_mine:
-                mCurPage = 3;
+                mCurPage = 2;
                 break;
         }
         changeFragment();
@@ -118,14 +113,6 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                     ft.add(R.id.fm_content,test2,
                             Test2Fragment.class.getSimpleName());
                     fragments[mCurPage] = test2;
-                }
-                break;
-            case 3:
-                if (test3 == null){
-                    test3 = new Test3Fragment();
-                    ft.add(R.id.fm_content,test3,
-                            Test3Fragment.class.getSimpleName());
-                    fragments[mCurPage] = test3;
                 }
                 break;
         }

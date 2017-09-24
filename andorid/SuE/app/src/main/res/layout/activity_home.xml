@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigation"
-        android:layout_below="@id/below"></FrameLayout>
+        android:layout_below="@id/below"/>
 
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,5 +29,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="start"
+        app:itemIconTint="@color/icon_color_selector"
+        app:itemTextColor="@color/icon_color_selector"
         app:menu="@menu/bottom_menu" />
 </RelativeLayout>

@@ -56,6 +56,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         mFManager = getSupportFragmentManager();
         initViews();
         initData();
+
     }
 
     @Override
