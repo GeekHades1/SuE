@@ -20,13 +20,14 @@
 
     <Button
         android:id="@+id/btn_guide_enter"
-        style="@style/WrapWrap"
+        android:layout_width="200dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
         android:background="@drawable/selector_btn_test"
         android:padding="8dp"
-        android:text="进入主界面"
+        android:text="立即使用"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:visibility="gone"

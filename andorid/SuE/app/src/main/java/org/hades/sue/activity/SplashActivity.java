@@ -3,6 +3,7 @@ package org.hades.sue.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import org.hades.sue.App;
@@ -23,6 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
@@ -31,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
             setBannerListener();
             processLogic();
         }else {
-            mRlBg.setBackgroundResource(R.drawable.startbg);
+            mRlBg.setBackgroundResource(R.drawable.sue);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -63,8 +66,8 @@ public class SplashActivity extends AppCompatActivity {
 
     private void processLogic() {
         // 设置数据源
-        mBackgroundBanner.setData(R.drawable.uoko_guide_background_1,
-                R.drawable.uoko_guide_background_2,
-                R.drawable.uoko_guide_background_3);
+        mBackgroundBanner.setData(R.drawable.guide1,
+                R.drawable.guide2,
+                R.drawable.guide3);
     }
 }

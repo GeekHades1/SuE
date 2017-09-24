@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
@@ -14,6 +15,7 @@ import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.Test1Fragment;
 import org.hades.sue.fragment.Test2Fragment;
 import org.hades.sue.presenter.IHomePresenter;
+import org.hades.sue.presenter.impl.HomePresenter;
 
 import butterknife.BindView;
 
@@ -26,6 +28,8 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private HomeFragment   mHomeFragment = null;
 
+    private IHomePresenter presenter;
+
     private Test1Fragment test1 = null;
     private Test2Fragment test2 = null;
 
@@ -37,7 +41,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     @Override
     public void setPresenter(IHomePresenter presenter) {
-
+        this.presenter = presenter;
     }
 
     @Override
@@ -56,7 +60,9 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     @Override
     public void initData() {
-
+        presenter = new HomePresenter();
+        presenter.start(this);
+        presenter.setTitleBar(getBar(),IHomePresenter.BAR_NORMAL);
     }
 
     //start this activity
@@ -138,5 +144,10 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private void showFragment(FragmentTransaction ft,int pos){
         hideAllFragment(ft);
         ft.show(fragments[pos]);
+    }
+
+    @Override
+    protected View getBar(){
+        return super.getBar();
     }
 }

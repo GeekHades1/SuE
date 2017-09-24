@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -41,7 +42,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     public abstract void initData();
 
-
+    protected View getBar(){
+        return mTitleBar;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
