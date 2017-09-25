@@ -12,12 +12,12 @@ import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
 import org.hades.sue.fragment.HomeFragment;
-import org.hades.sue.fragment.Test1Fragment;
-import org.hades.sue.fragment.Test2Fragment;
+import org.hades.sue.fragment.BodyCheckFragment;
+import org.hades.sue.fragment.MineFragment;
 import org.hades.sue.presenter.IHomePresenter;
-import org.hades.sue.presenter.impl.HomePresenter;
 
 import butterknife.BindView;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class HomeActivity extends BaseActivity<IHomePresenter> implements
         BottomNavigationView.OnNavigationItemSelectedListener{
@@ -30,13 +30,16 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private IHomePresenter presenter;
 
-    private Test1Fragment test1 = null;
-    private Test2Fragment test2 = null;
+    private BodyCheckFragment test1 = null;
+    private MineFragment test2 = null;
 
     private int           mCurPage = 0;
 
     @BindView(R.id.navigation)
     BottomNavigationView  mBottomBar;
+
+    @BindView(R.id.my_title_bar)
+    BGATitleBar mTitleBar;
 
 
     @Override
@@ -50,6 +53,12 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
     @Override
+    public View getTitleBar() {
+        return mTitleBar;
+    }
+
+
+    @Override
     public void initViews() {
         //设置默认页面
         mBottomBar.setSelectedItemId(R.id.action_home);
@@ -60,9 +69,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     @Override
     public void initData() {
-        presenter = new HomePresenter();
-        presenter.start(this);
-        presenter.setTitleBar(getBar(),IHomePresenter.BAR_NORMAL);
+
     }
 
     //start this activity
@@ -107,17 +114,17 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                 break;
             case 1:
                 if (test1 == null){
-                    test1 = new Test1Fragment();
+                    test1 = new BodyCheckFragment();
                     ft.add(R.id.fm_content,test1,
-                            Test1Fragment.class.getSimpleName());
+                            BodyCheckFragment.class.getSimpleName());
                     fragments[mCurPage] = test1;
                 }
                 break;
             case 2:
                 if (test2 == null){
-                    test2 = new Test2Fragment();
+                    test2 = new MineFragment();
                     ft.add(R.id.fm_content,test2,
-                            Test2Fragment.class.getSimpleName());
+                            MineFragment.class.getSimpleName());
                     fragments[mCurPage] = test2;
                 }
                 break;
@@ -146,8 +153,6 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         ft.show(fragments[pos]);
     }
 
-    @Override
-    protected View getBar(){
-        return super.getBar();
-    }
+
+
 }

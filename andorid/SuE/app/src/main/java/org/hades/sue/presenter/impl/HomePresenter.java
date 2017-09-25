@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.hades.sue.R;
 import org.hades.sue.presenter.IHomePresenter;
 
 /**
@@ -27,15 +26,13 @@ public class HomePresenter implements IHomePresenter {
     @Override
     public void start(Context context) {
         mContext = context;
-        mNormalBar =
-                View.inflate(mContext, R.layout.title_bar_normal,null);
     }
 
     @Override
     public void setTitleBar( View bar,int nFlags) {
         if (mBar == null){
             mBar = bar;
-            mBarContent = bar.findViewById(R.id.rl_title_content);
+
         }
         switch (nFlags){
             case BAR_NORMAL:

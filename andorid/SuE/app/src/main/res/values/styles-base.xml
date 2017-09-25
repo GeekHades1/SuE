@@ -118,4 +118,30 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <!--默认的按钮样式-->
+    <style name="tv_base_btn">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/padding_20dp</item>
+        <item name="android:paddingRight">@dimen/padding_20dp</item>
+        <item name="android:paddingTop">@dimen/padding_10dp</item>
+        <item name="android:paddingBottom">@dimen/padding_10dp</item>
+        <item name="android:textSize">@dimen/padding_15dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:drawablePadding">@dimen/padding_5dp</item>
+        <item name="android:background">@drawable/selector_btn_test</item>
+    </style>
+
+    <!--基础的文本样式-->
+    <style name="tv_base_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/padding_5dp</item>
+        <item name="android:textSize">@dimen/padding_15dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>

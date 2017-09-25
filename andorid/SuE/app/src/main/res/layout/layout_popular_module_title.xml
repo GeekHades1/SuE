@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/rl_layout_popular_module_title_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorWhite"
+    android:gravity="center_vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="@dimen/padding_10dp"
+    android:paddingLeft="@dimen/padding_10dp"
+    android:paddingRight="@dimen/padding_10dp"
+    android:paddingTop="@dimen/padding_10dp">
+
+    <View
+        android:id="@+id/v_layout_popular_module_tag"
+        android:layout_width="@dimen/padding_5dp"
+        android:layout_height="@dimen/padding_25dp"
+        android:background="@color/titleBar"/>
+
+    <TextView
+        android:id="@+id/tv_layout_popular_module_title"
+        style="@style/tv_layout_popular_module_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_5dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        tools:text="test"
+        />
+
+    <TextView
+        android:id="@+id/tv_layout_popular_module_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更多 >"
+        android:textColor="@color/colorBlack"/>
+
+
+</LinearLayout>

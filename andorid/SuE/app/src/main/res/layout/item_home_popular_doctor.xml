@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/padding_15dp"
+              android:paddingRight="@dimen/padding_15dp">
+
+    <ImageView
+        android:id="@+id/iv_item_popular_doctor_pic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_80dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_normal_kobe"/>
+
+    <TextView
+        android:id="@+id/tv_item_popular_doctor_reserve"
+        style="@style/tv_layout_popular_module_btn"
+        android:background="@drawable/shape_bg_mild_blue_round_rect"
+        android:text="预约"/>
+
+</LinearLayout>

@@ -15,6 +15,7 @@ android {
     defaultConfig {
         applicationId "org.hades.sue"
         minSdkVersion 18
+        multiDexEnabled true
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -23,8 +24,8 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled true
             shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,8 +40,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.support:design:26.1.0'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    compile 'cn.bingoogolapple:bga-titlebar:1.0.8@aar'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.taro:headerrecycle:2.6.0'
+    //图片库
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 }

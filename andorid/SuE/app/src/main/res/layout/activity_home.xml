@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.hades.sue.activity.HomeActivity">
 
-    <RelativeLayout
-        android:id="@+id/below"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <include layout="@layout/title_bar" />
-    </RelativeLayout>
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:id="@+id/my_title_bar"
+        style="@style/TitleBar"
+        app:bgatitlebar_leftText="江门"
+        app:bgatitlebar_rightDrawable="@drawable/selector_nav_pop"
+        app:bgatitlebar_titleText="@string/app_name" />
 
 
     <FrameLayout
@@ -19,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigation"
-        android:layout_below="@id/below"/>
+        android:layout_below="@id/my_title_bar" />
 
 
     <android.support.design.widget.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
