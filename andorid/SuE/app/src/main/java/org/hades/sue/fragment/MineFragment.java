@@ -7,7 +7,7 @@ import org.hades.sue.base.BaseFragment;
  * Created by Hades on 2017/9/21.
  */
 
-public class Test2Fragment extends BaseFragment {
+public class MineFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_test2;

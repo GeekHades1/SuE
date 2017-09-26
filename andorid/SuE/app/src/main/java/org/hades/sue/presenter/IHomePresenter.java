@@ -1,5 +1,7 @@
 package org.hades.sue.presenter;
 
+import android.view.View;
+
 import org.hades.sue.base.BasePresenter;
 
 /**
@@ -8,9 +10,11 @@ import org.hades.sue.base.BasePresenter;
 
 public interface IHomePresenter extends BasePresenter {
 
+    int BAR_NORMAL = -100;
+
     /**
-     * 设置搜索框
+     * 将contentBar设置入Bar
      */
-    void setSearchTv();
+    void setTitleBar(View bar,int vFlags);
 
 }

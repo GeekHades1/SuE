@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
+import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 
 import org.hades.sue.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,19 +27,17 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     private ImmersionBar mImmersionBar;
 
-    @BindView(R.id.titleBar)
-    RelativeLayout mTitleBar;
-
     /**
      * must impl layout id
      * @return
      */
     public abstract int getLayoutId();
 
+    public abstract View getTitleBar();
+
     public abstract void initViews();
 
     public abstract void initData();
-
 
 
     @Override
@@ -51,11 +48,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         ButterKnife.bind(this);
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar
-                .titleBar(mTitleBar)
+                .barColor(R.color.titleBar)
+                .titleBarMarginTop(getTitleBar())
                 .init();   //所有子类都将继承这些相同的属性
         mFManager = getSupportFragmentManager();
         initViews();
         initData();
+
     }
 
     @Override

@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.andview.refreshview.XRefreshView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/xref_view"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/cb_index_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_150dp"
+                    app:canLoop="true" />
+
+                <!--名医预约-->
+                <include
+                    android:id="@+id/layout_popular_module_home_doctor"
+                    layout="@layout/layout_popular_module"
+                    />
+                <!--附近医院-->
+                <include
+                    android:id="@+id/layout_popular_module_home_hospital"
+                    layout="@layout/layout_popular_module"
+                    />
+                <!--健康资讯-->
+                <include
+                    android:id="@+id/layout_popular_module_essay"
+                    layout="@layout/layout_popular_module"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </com.andview.refreshview.XRefreshView>
-
-
-
 
 
 </LinearLayout>

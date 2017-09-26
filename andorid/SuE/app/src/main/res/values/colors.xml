@@ -7,4 +7,8 @@
     <color name="titleBar">#4cc4ec</color>
     <color name="colorWhite">#ffffff</color>
     <color name="enterColor">#e6f9f7</color>
+    <color name="blue_bg_base">#00abe4</color>
+    <color name="green_bg_base">#06c1ae</color>
+    <color name="colorBlack">#000000</color>
+    <color name="light_gray">#d5d5d5</color>
 </resources>

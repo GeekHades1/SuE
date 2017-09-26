@@ -6,46 +6,57 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
 import org.hades.sue.fragment.HomeFragment;
-import org.hades.sue.fragment.Test1Fragment;
-import org.hades.sue.fragment.Test2Fragment;
-import org.hades.sue.fragment.Test3Fragment;
+import org.hades.sue.fragment.BodyCheckFragment;
+import org.hades.sue.fragment.MineFragment;
 import org.hades.sue.presenter.IHomePresenter;
 
 import butterknife.BindView;
+import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class HomeActivity extends BaseActivity<IHomePresenter> implements
         BottomNavigationView.OnNavigationItemSelectedListener{
 
     private final String TAG = HomeActivity.class.getSimpleName();
 
-    private BaseFragment     fragments[] = new BaseFragment[4];
+    private BaseFragment     fragments[] = new BaseFragment[3];
 
     private HomeFragment   mHomeFragment = null;
 
-    private Test1Fragment test1 = null;
-    private Test2Fragment test2 = null;
-    private Test3Fragment test3 = null;
+    private IHomePresenter presenter;
+
+    private BodyCheckFragment test1 = null;
+    private MineFragment test2 = null;
 
     private int           mCurPage = 0;
 
     @BindView(R.id.navigation)
     BottomNavigationView  mBottomBar;
 
+    @BindView(R.id.my_title_bar)
+    BGATitleBar mTitleBar;
+
 
     @Override
     public void setPresenter(IHomePresenter presenter) {
-
+        this.presenter = presenter;
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_home;
     }
+
+    @Override
+    public View getTitleBar() {
+        return mTitleBar;
+    }
+
 
     @Override
     public void initViews() {
@@ -71,17 +82,14 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Log.d(TAG,"click + "+item.getItemId());
         switch (item.getItemId()){
-            case R.id.action_news:
-                mCurPage = 1;
-                break;
             case R.id.action_home:
                 mCurPage = 0;
                 break;
             case R.id.action_body_check:
-                mCurPage = 2;
+                mCurPage = 1;
                 break;
             case R.id.action_mine:
-                mCurPage = 3;
+                mCurPage = 2;
                 break;
         }
         changeFragment();
@@ -106,26 +114,18 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                 break;
             case 1:
                 if (test1 == null){
-                    test1 = new Test1Fragment();
+                    test1 = new BodyCheckFragment();
                     ft.add(R.id.fm_content,test1,
-                            Test1Fragment.class.getSimpleName());
+                            BodyCheckFragment.class.getSimpleName());
                     fragments[mCurPage] = test1;
                 }
                 break;
             case 2:
                 if (test2 == null){
-                    test2 = new Test2Fragment();
+                    test2 = new MineFragment();
                     ft.add(R.id.fm_content,test2,
-                            Test2Fragment.class.getSimpleName());
+                            MineFragment.class.getSimpleName());
                     fragments[mCurPage] = test2;
-                }
-                break;
-            case 3:
-                if (test3 == null){
-                    test3 = new Test3Fragment();
-                    ft.add(R.id.fm_content,test3,
-                            Test3Fragment.class.getSimpleName());
-                    fragments[mCurPage] = test3;
                 }
                 break;
         }
@@ -152,4 +152,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         hideAllFragment(ft);
         ft.show(fragments[pos]);
     }
+
+
+
 }
