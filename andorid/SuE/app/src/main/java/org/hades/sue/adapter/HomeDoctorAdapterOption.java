@@ -1,5 +1,6 @@
 package org.hades.sue.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +26,25 @@ public class HomeDoctorAdapterOption extends SimpleRecycleAdapter.SimpleAdapterO
         return position;
     }
 
+    @SuppressLint("StringFormatMatches")
     @Override
     public void setViewHolder(DoctorBean itemData, int position, @NonNull HeaderRecycleViewHolder holder) {
-        ImageView ivDoctor = holder.getView(R.id.iv_item_popular_doctor_pic);
-        TextView tvReserve = holder.getView(R.id.tv_item_popular_doctor_reserve);
-        //预约操作
+        if (itemData != null){
+            ImageView ivDoctor = holder.getView(R.id.iv_item_popular_doctor_pic);
+            TextView tvReserve = holder.getView(R.id.tv_item_popular_doctor_reserve);
+            TextView tvName = holder.getView(R.id.tv_item_popular_doctor_name);
+            TextView tvPro = holder.getView(R.id.tv_item_popular_doctor_pro);
+            tvName.setText(itemData.name);
+            tvPro.setText(itemData.prof);
+            tvReserve.setText("预约");
 
-        Glide.with(App.mContext)
-                .load(R.drawable.icon_normal_kobe)
-                .into(ivDoctor);
+            //预约操作
+
+            Glide.with(App.mContext)
+                    .load(R.drawable.icon_normal_kobe)
+                    .into(ivDoctor);
+        }
+
     }
 
     @Override

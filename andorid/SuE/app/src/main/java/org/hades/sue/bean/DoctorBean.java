@@ -7,10 +7,18 @@ package org.hades.sue.bean;
  */
 
 public class DoctorBean {
-    private String name;
+    public String name;
+    public String prof;
+    public String office;
 
     public DoctorBean(String name) {
         this.name = name;
+    }
+
+    public DoctorBean(String name, String prof, String office) {
+        this.name = name;
+        this.prof = prof;
+        this.office = office;
     }
 
     public String getName() {

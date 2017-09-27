@@ -5,4 +5,9 @@ package org.hades.sue.bean;
  */
 
 public class HospitalBean {
+    public String name;
+
+    public HospitalBean(String name) {
+        this.name = name;
+    }
 }

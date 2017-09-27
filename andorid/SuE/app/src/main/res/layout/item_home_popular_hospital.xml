@@ -16,14 +16,8 @@
     <TextView
         style="@style/tv_layout_popular_module_text"
         android:layout_width="match_parent"
-        android:id="@+id/tv_item_popular_doctor_name"
-        android:text="@string/app_name"
-
-        />
-    <TextView
-        style="@style/tv_layout_popular_module_text"
-        android:layout_width="match_parent"
-        android:id="@+id/tv_item_popular_doctor_pro"
+        android:gravity="left"
+        android:id="@+id/tv_item_popular_hospital_name"
         android:text="@string/app_name"
         />
 

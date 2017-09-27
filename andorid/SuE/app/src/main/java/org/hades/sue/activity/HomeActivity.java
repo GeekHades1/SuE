@@ -5,14 +5,20 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.tencent.map.geolocation.TencentLocation;
+import com.tencent.map.geolocation.TencentLocationListener;
+import com.tencent.map.geolocation.TencentLocationManager;
+import com.tencent.map.geolocation.TencentLocationRequest;
 
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
-import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.BodyCheckFragment;
+import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.MineFragment;
 import org.hades.sue.presenter.IHomePresenter;
 
@@ -20,7 +26,8 @@ import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class HomeActivity extends BaseActivity<IHomePresenter> implements
-        BottomNavigationView.OnNavigationItemSelectedListener{
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        TencentLocationListener {
 
     private final String TAG = HomeActivity.class.getSimpleName();
 
@@ -69,7 +76,20 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     @Override
     public void initData() {
+        initTencentLocation();
+    }
 
+    /**
+     * 初始
+     */
+    private void initTencentLocation() {
+        TencentLocationRequest request = TencentLocationRequest.create()
+                .setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_ADMIN_AREA);
+        TencentLocationManager locationManager = TencentLocationManager.getInstance(this);
+        int error = locationManager.requestLocationUpdates(request, this);
+        if (error == 0) {
+            Log.d(TAG, "位置监听成功");
+        }
     }
 
     //start this activity
@@ -154,5 +174,21 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
 
+    @Override
+    public void onLocationChanged(TencentLocation location, int error, String reason) {
+        if (TencentLocation.ERROR_OK == error) {
+            // 定位成功
+            Log.d(TAG, "city = " + location.getCity());
+            mTitleBar.setLeftText(location.getCity());
+        } else {
+            // 定位失败
+            Log.e(TAG, "定位失败");
+            mTitleBar.setLeftText("未知");
+        }
+    }
 
+    @Override
+    public void onStatusUpdate(String name, int status, String desc) {
+
+    }
 }

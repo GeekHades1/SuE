@@ -22,6 +22,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        debug{
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
         release {
             signingConfig signingConfigs.release
             shrinkResources true
@@ -50,4 +57,7 @@ dependencies {
     //图片库
     compile 'com.github.bumptech.glide:glide:4.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
+    compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'
 }

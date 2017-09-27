@@ -1,7 +1,6 @@
 package org.hades.sue.fragment;
 
 import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -11,7 +10,6 @@ import com.taro.headerrecycle.adapter.SimpleRecycleAdapter;
 import com.taro.headerrecycle.helper.RecycleViewOnClickHelper;
 
 import org.hades.sue.R;
-import org.hades.sue.adapter.HomeAdapter;
 import org.hades.sue.adapter.HomeDoctorAdapterOption;
 import org.hades.sue.adapter.HomeEssayAdapterOption;
 import org.hades.sue.adapter.HomeHospitalAdapterOption;
@@ -19,6 +17,7 @@ import org.hades.sue.base.BaseFragment;
 import org.hades.sue.bean.AdBean;
 import org.hades.sue.bean.DoctorBean;
 import org.hades.sue.bean.EssayBean;
+import org.hades.sue.bean.HospitalBean;
 import org.hades.sue.helper.LayoutPopularModuleHelper;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.ViewUtils;
@@ -41,8 +40,6 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
     @BindView(R.id.xref_view)
     XRefreshView xRefreshView;
 
-    private RecyclerView.LayoutManager mLayoutManager;
-    private HomeAdapter mAdapter;
 
     private BGATitleBar mTitleBar;
 
@@ -72,11 +69,14 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
 
     @Override
     public void initViews() {
+        mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
+        initBar();
+
         //初始化名医专栏
         mPopularDoctorHelper = new LayoutPopularModuleHelper(mViewDoctor);
         mPopularDoctorHelper.setTitle("名医预约");
         mPopularDoctorHelper.setRecyclerViewGridLayout
-                (mHomeActivity, false, 4);
+                (mHomeActivity, false, 3);
         mPopularDoctorHelper.setMoreClickListener(this);
         //预约名医
         RecycleViewOnClickHelper doctorClickHelper = new RecycleViewOnClickHelper(getActivity());
@@ -96,7 +96,7 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
         mPopularHospitalHelper.setTitle("附近医院");
         mPopularHospitalHelper.setTagColor(R.color.green_bg_base);
         mPopularHospitalHelper.setRecyclerViewGridLayout
-                (mHomeActivity, false, 4);
+                (mHomeActivity, false, 3);
         mPopularHospitalHelper.setMoreClickListener(this);
         //预约医院
         RecycleViewOnClickHelper hospitalClickHelper = new RecycleViewOnClickHelper(mHomeActivity);
@@ -128,10 +128,7 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
             }
         });
 
-        //设置布局
-        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         initRefView();
-        mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
 
         mTitleBar.setDelegate(new BGATitleBar.Delegate() {
             @Override
@@ -155,6 +152,15 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
             }
         });
 
+    }
+
+    /**
+     * 初始化标题
+     */
+    private void initBar() {
+        mTitleBar.setTitleText("首页");
+        mTitleBar.getLeftCtv().setVisibility(View.VISIBLE);
+        mTitleBar.getRightCtv().setVisibility(View.VISIBLE);
     }
 
     private void initRefView() {
@@ -192,7 +198,7 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
 
         //init hospital
         mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
-                , new HomeHospitalAdapterOption(), getData());
+                , new HomeHospitalAdapterOption(), getHData());
         mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
         //init essay
         mEssayAdapter = new SimpleRecycleAdapter(mHomeActivity,
@@ -201,10 +207,19 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
 
     }
 
+    private List<HospitalBean> getHData() {
+        List<HospitalBean> data = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            data.add(new HospitalBean("人民医院"));
+        }
+        return data;
+    }
+
+
     private List<DoctorBean> getData() {
         List<DoctorBean> data = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            data.add(new DoctorBean("Hades"));
+        for (int i = 0; i < 3; i++) {
+            data.add(new DoctorBean("Hades","骨科","副院长"));
         }
         return data;
     }
@@ -236,5 +251,13 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
         } else {
 
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden){
+            initBar();
+        }
+        super.onHiddenChanged(hidden);
     }
 }

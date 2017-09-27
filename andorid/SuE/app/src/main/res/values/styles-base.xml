@@ -142,6 +142,5 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:gravity">center_vertical</item>
     </style>
 </resources>

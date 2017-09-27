@@ -34,3 +34,15 @@
 }
 
 
+#tecent map
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    public void on*Event(...);
+}
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-dontwarn  org.eclipse.jdt.annotation.**
+-dontnote ct.**
+
+
