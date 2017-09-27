@@ -4,10 +4,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
-            keyAlias 'Hades'
-            keyPassword 'Red00282'
-            storeFile file('/Users/Hades/HadesProFile/myStore.jks')
-            storePassword 'Red00282'
+            keyAlias 'Sue'
+            keyPassword 'Sue123456'
+            storeFile file('/Users/Hades/HadesProFile/ITEM/DiLangBei/SuE/key')
+            storePassword 'Sue123456'
         }
     }
     compileSdkVersion 26
@@ -60,4 +60,6 @@ dependencies {
     implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
     compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'
+
+    compile project(path: ':slidingmenu')
 }

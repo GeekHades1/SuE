@@ -41,6 +41,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private MineFragment test2 = null;
 
     private int           mCurPage = 0;
+    private int           mPrePage = 0;
 
     @BindView(R.id.navigation)
     BottomNavigationView  mBottomBar;
@@ -70,6 +71,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         //设置默认页面
         mBottomBar.setSelectedItemId(R.id.action_home);
         mCurPage = 0;
+        mPrePage = -1;
         changeFragment();
         mBottomBar.setOnNavigationItemSelectedListener(this);
     }
@@ -101,6 +103,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Log.d(TAG,"click + "+item.getItemId());
+        mPrePage = mCurPage;
         switch (item.getItemId()){
             case R.id.action_home:
                 mCurPage = 0;
@@ -112,7 +115,9 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                 mCurPage = 2;
                 break;
         }
-        changeFragment();
+        if (mPrePage != mCurPage){
+            changeFragment();
+        }
         return true;
     }
 
@@ -170,6 +175,19 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
      */
     private void showFragment(FragmentTransaction ft,int pos){
         hideAllFragment(ft);
+        boolean isNext = false;
+        if (mPrePage - mCurPage < 0){
+            isNext = true;
+        }else {
+            isNext = false;
+        }
+        if (isNext){
+            ft.setCustomAnimations(R.anim.slide_in_left,
+                    R.anim.slide_out_right);
+        }else {
+            ft.setCustomAnimations(R.anim.slide_out_left,
+                    R.anim.slide_in_right);
+        }
         ft.show(fragments[pos]);
     }
 

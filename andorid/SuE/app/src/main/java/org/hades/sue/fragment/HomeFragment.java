@@ -134,6 +134,7 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
             @Override
             public void onClickLeftCtv() {
                 ToastUtils.showLong(mHomeActivity, "点击左侧");
+
             }
 
             @Override
