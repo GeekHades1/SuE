@@ -3,13 +3,17 @@ package org.hades.sue.fragment;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.andview.refreshview.XRefreshView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.taro.headerrecycle.adapter.SimpleRecycleAdapter;
 import com.taro.headerrecycle.helper.RecycleViewOnClickHelper;
 
 import org.hades.sue.R;
+import org.hades.sue.adapter.GridLocationAdapter;
 import org.hades.sue.adapter.HomeDoctorAdapterOption;
 import org.hades.sue.adapter.HomeEssayAdapterOption;
 import org.hades.sue.adapter.HomeHospitalAdapterOption;
@@ -34,7 +38,8 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
  * Created by Hades on 2017/9/21.
  */
 
-public class HomeFragment extends BaseFragment implements PopularTitleView.OnTitleMoreClickListener {
+public class HomeFragment extends BaseFragment implements
+        PopularTitleView.OnTitleMoreClickListener,AdapterView.OnItemClickListener {
 
 
     @BindView(R.id.xref_view)
@@ -42,6 +47,10 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
 
 
     private BGATitleBar mTitleBar;
+    private SlidingMenu mSlidingMenu;
+
+    private GridView    gv_location;
+    private GridLocationAdapter mGridAdapter;
 
     @BindView(R.id.cb_index_banner)
     ConvenientBanner mCbBanner;
@@ -71,7 +80,38 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
     public void initViews() {
         mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
         initBar();
+        initSlidingMenu();
+        initRefView();
+        initPopular();
 
+        mTitleBar.setDelegate(new BGATitleBar.Delegate() {
+            @Override
+            public void onClickLeftCtv() {
+                mSlidingMenu.toggle();
+            }
+
+            @Override
+            public void onClickTitleCtv() {
+
+            }
+
+            @Override
+            public void onClickRightCtv() {
+                ToastUtils.showLong(mHomeActivity, "点击右侧");
+            }
+
+            @Override
+            public void onClickRightSecondaryCtv() {
+
+            }
+        });
+
+    }
+
+    /**
+     * 初始化专栏
+     */
+    private void initPopular() {
         //初始化名医专栏
         mPopularDoctorHelper = new LayoutPopularModuleHelper(mViewDoctor);
         mPopularDoctorHelper.setTitle("名医预约");
@@ -127,32 +167,27 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
                 return false;
             }
         });
+    }
 
-        initRefView();
+    /**
+     * 初始化侧滑栏
+     */
+    private void initSlidingMenu() {
+        mSlidingMenu = new SlidingMenu(mHomeActivity);
+        mSlidingMenu.setMode(SlidingMenu.LEFT);
+        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width);
+        mSlidingMenu.setShadowDrawable(R.drawable.shadow);
+        mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        mSlidingMenu.setFadeDegree(0.35f);
 
-        mTitleBar.setDelegate(new BGATitleBar.Delegate() {
-            @Override
-            public void onClickLeftCtv() {
-                ToastUtils.showLong(mHomeActivity, "点击左侧");
-
-            }
-
-            @Override
-            public void onClickTitleCtv() {
-
-            }
-
-            @Override
-            public void onClickRightCtv() {
-                ToastUtils.showLong(mHomeActivity, "点击右侧");
-            }
-
-            @Override
-            public void onClickRightSecondaryCtv() {
-
-            }
-        });
-
+        mSlidingMenu.attachToActivity(mHomeActivity,
+                SlidingMenu.SLIDING_CONTENT,true);
+        //菜单view
+        View view = View.inflate(mHomeActivity, R.layout.location, null);
+        mSlidingMenu.setMenu(view);
+        gv_location = view.findViewById(R.id.gv_location);
+        gv_location.setOnItemClickListener(this);
     }
 
     /**
@@ -206,6 +241,17 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
                 new HomeEssayAdapterOption(), getEssay());
         mPopularEssayHelper.mRvContent.setAdapter(mEssayAdapter);
 
+        mGridAdapter = new GridLocationAdapter(mHomeActivity,getLocationData());
+        gv_location.setAdapter(mGridAdapter);
+        mGridAdapter.notifyDataSetChanged();
+    }
+
+    private List<String> getLocationData() {
+        List<String> data = new ArrayList<>();
+        data.add("江门");
+        data.add("广州");
+        data.add("深圳");
+        return data;
     }
 
     private List<HospitalBean> getHData() {
@@ -260,5 +306,13 @@ public class HomeFragment extends BaseFragment implements PopularTitleView.OnTit
             initBar();
         }
         super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView,
+                            View view, int i, long l) {
+        String local = (String) mGridAdapter.getItem(i);
+        mTitleBar.setLeftText(local);
+        mSlidingMenu.toggle();
     }
 }

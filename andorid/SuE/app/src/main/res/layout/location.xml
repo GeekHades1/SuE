@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_marginTop="@dimen/padding_50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:text="请选择你所在的城市(目前只支持下列城市)"
+        />
+
+    <GridView
+        android:layout_marginTop="@dimen/padding_15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gv_location"
+        android:columnWidth="90dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        ></GridView>
+
+</LinearLayout>

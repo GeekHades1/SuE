@@ -36,6 +36,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private HomeFragment   mHomeFragment = null;
 
     private IHomePresenter presenter;
+    TencentLocationManager locationManager;
 
     private BodyCheckFragment test1 = null;
     private MineFragment test2 = null;
@@ -87,7 +88,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private void initTencentLocation() {
         TencentLocationRequest request = TencentLocationRequest.create()
                 .setRequestLevel(TencentLocationRequest.REQUEST_LEVEL_ADMIN_AREA);
-        TencentLocationManager locationManager = TencentLocationManager.getInstance(this);
+        locationManager = TencentLocationManager.getInstance(this);
         int error = locationManager.requestLocationUpdates(request, this);
         if (error == 0) {
             Log.d(TAG, "位置监听成功");
@@ -202,6 +203,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             // 定位失败
             Log.e(TAG, "定位失败");
             mTitleBar.setLeftText("未知");
+            locationManager.removeUpdates(this);
         }
     }
 
