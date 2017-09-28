@@ -31,21 +31,21 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private final String TAG = HomeActivity.class.getSimpleName();
 
-    private BaseFragment     fragments[] = new BaseFragment[3];
+    private BaseFragment fragments[] = new BaseFragment[3];
 
-    private HomeFragment   mHomeFragment = null;
+    private HomeFragment mHomeFragment = null;
+    private BodyCheckFragment mBodyCheckFragment = null;
+    private MineFragment mMineFragment = null;
 
     private IHomePresenter presenter;
     TencentLocationManager locationManager;
 
-    private BodyCheckFragment test1 = null;
-    private MineFragment test2 = null;
 
-    private int           mCurPage = 0;
-    private int           mPrePage = 0;
+    private int mCurPage = 0;
+    private int mPrePage = 0;
 
     @BindView(R.id.navigation)
-    BottomNavigationView  mBottomBar;
+    BottomNavigationView mBottomBar;
 
     @BindView(R.id.my_title_bar)
     BGATitleBar mTitleBar;
@@ -95,9 +95,10 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         }
     }
 
+
     //start this activity
     public static boolean startActivity(Context context) {
-        context.startActivity(new Intent(context,HomeActivity.class));
+        context.startActivity(new Intent(context, HomeActivity.class));
         return true;
     }
 
@@ -105,7 +106,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         //Log.d(TAG,"click + "+item.getItemId());
         mPrePage = mCurPage;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_home:
                 mCurPage = 0;
                 break;
@@ -116,7 +117,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                 mCurPage = 2;
                 break;
         }
-        if (mPrePage != mCurPage){
+        if (mPrePage != mCurPage) {
             changeFragment();
         }
         return true;
@@ -126,44 +127,44 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     /**
      * 改变Fragment
      */
-    private void changeFragment(){
+    private void changeFragment() {
         //Log.d(TAG, "page - " + mCurPage);
         FragmentTransaction ft = mFManager.beginTransaction();
-        switch (mCurPage){
+        switch (mCurPage) {
             case 0:
-                if (mHomeFragment == null){
+                if (mHomeFragment == null) {
                     mHomeFragment = new HomeFragment();
-                    ft.add(R.id.fm_content,mHomeFragment,
+                    ft.add(R.id.fm_content, mHomeFragment,
                             HomeFragment.class.getSimpleName());
                     fragments[mCurPage] = mHomeFragment;
                 }
                 break;
             case 1:
-                if (test1 == null){
-                    test1 = new BodyCheckFragment();
-                    ft.add(R.id.fm_content,test1,
+                if (mBodyCheckFragment == null) {
+                    mBodyCheckFragment = new BodyCheckFragment();
+                    ft.add(R.id.fm_content, mBodyCheckFragment,
                             BodyCheckFragment.class.getSimpleName());
-                    fragments[mCurPage] = test1;
+                    fragments[mCurPage] = mBodyCheckFragment;
                 }
                 break;
             case 2:
-                if (test2 == null){
-                    test2 = new MineFragment();
-                    ft.add(R.id.fm_content,test2,
+                if (mMineFragment == null) {
+                    mMineFragment = new MineFragment();
+                    ft.add(R.id.fm_content, mMineFragment,
                             MineFragment.class.getSimpleName());
-                    fragments[mCurPage] = test2;
+                    fragments[mCurPage] = mMineFragment;
                 }
                 break;
         }
-        showFragment(ft,mCurPage);
+        showFragment(ft, mCurPage);
         ft.commit();
     }
 
     /**
      * 隐藏所有Fragment
      */
-    private void hideAllFragment(FragmentTransaction ft){
-        for(int i = 0; i < fragments.length;i++) {
+    private void hideAllFragment(FragmentTransaction ft) {
+        for (int i = 0; i < fragments.length; i++) {
             if (fragments[i] != null) {
                 ft.hide(fragments[i]);
             }
@@ -172,26 +173,26 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     /**
      * 显示指定pos Fragment
+     *
      * @param pos
      */
-    private void showFragment(FragmentTransaction ft,int pos){
+    private void showFragment(FragmentTransaction ft, int pos) {
         hideAllFragment(ft);
         boolean isNext = false;
-        if (mPrePage - mCurPage < 0){
+        if (mPrePage - mCurPage < 0) {
             isNext = true;
-        }else {
+        } else {
             isNext = false;
         }
-        if (isNext){
+        if (isNext) {
             ft.setCustomAnimations(R.anim.slide_in_left,
                     R.anim.slide_out_right);
-        }else {
+        } else {
             ft.setCustomAnimations(R.anim.slide_out_left,
                     R.anim.slide_in_right);
         }
         ft.show(fragments[pos]);
     }
-
 
     @Override
     public void onLocationChanged(TencentLocation location, int error, String reason) {

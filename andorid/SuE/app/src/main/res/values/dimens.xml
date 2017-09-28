@@ -11,6 +11,9 @@
 
     <dimen name="titlebar_height">48dp</dimen>
 
+    <dimen name="avatar_width">50dp</dimen>
+    <dimen name="avatar_height">50dp</dimen>
+
     <dimen name="btn_radius">2dp</dimen>
 
     <dimen name="padding_1dp">1dp</dimen>
@@ -37,6 +40,8 @@
     <dimen name="padding_140dp">140dp</dimen>
     <dimen name="padding_150dp">150dp</dimen>
     <dimen name="padding_200dp">200dp</dimen>
+
+    <dimen name="margin_12dp">12dp</dimen>
 
     <dimen name="slidingmenu_offset">200dp</dimen>
     <dimen name="list_padding">10dp</dimen>

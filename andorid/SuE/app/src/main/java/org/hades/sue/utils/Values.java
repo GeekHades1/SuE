@@ -11,4 +11,9 @@ public class Values {
      * 第一次进入程序
      */
     public static final String isFirst = "isFirst";
+
+    /*
+    s是否登录
+     */
+    public static final String isLogin = "isLogin";
 }

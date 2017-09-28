@@ -6,7 +6,7 @@ android {
         release {
             keyAlias 'Sue'
             keyPassword 'Sue123456'
-            storeFile file('/Users/Hades/HadesProFile/ITEM/DiLangBei/SuE/key')
+            storeFile file('F:/SuE/key')
             storePassword 'Sue123456'
         }
     }
@@ -23,7 +23,7 @@ android {
     }
     buildTypes {
 
-        debug{
+        debug {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -60,6 +60,6 @@ dependencies {
     implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
     compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'
-
     compile project(path: ':slidingmenu')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
