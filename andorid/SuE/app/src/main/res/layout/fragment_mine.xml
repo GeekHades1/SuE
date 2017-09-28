@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:src="@drawable/uoko_guide_background_2"-->
-    <!--/>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +16,8 @@
 
             <include
                 android:id="@+id/layou_mine_user_information"
-                layout="@layout/layout_mine_user_information" />
+                layout="@layout/layout_mine_user_information"
+                />
 
             <include
                 android:id="@+id/layout_mine_doctor"

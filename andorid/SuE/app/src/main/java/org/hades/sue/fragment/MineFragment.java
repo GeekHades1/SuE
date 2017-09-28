@@ -2,19 +2,14 @@ package org.hades.sue.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.activity.LoginActivity;
 import org.hades.sue.base.BaseFragment;
 import org.hades.sue.helper.LayoutMineModuleHelper;
-import org.hades.sue.helper.LayoutPopularModuleHelper;
-import org.hades.sue.utils.MessageEvent;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.Values;
 
@@ -113,17 +108,9 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MessageEvent event) {
-
-        String msg = event.getMessgae();
-        if (msg.equals("0")){
-
-        }
-    }
 
     @Override
     public void onDestroy() {

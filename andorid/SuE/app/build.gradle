@@ -6,7 +6,7 @@ android {
         release {
             keyAlias 'Sue'
             keyPassword 'Sue123456'
-            storeFile file('F:/SuE/key')
+            storeFile file('/Users/Hades/HadesProFile/ITEM/DiLangBei/SuE/key')
             storePassword 'Sue123456'
         }
     }
@@ -17,8 +17,8 @@ android {
         minSdkVersion 18
         multiDexEnabled true
         targetSdkVersion 26
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

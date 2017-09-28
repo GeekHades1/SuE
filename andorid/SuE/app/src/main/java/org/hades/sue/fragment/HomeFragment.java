@@ -314,5 +314,6 @@ public class HomeFragment extends BaseFragment implements
         String local = (String) mGridAdapter.getItem(i);
         mTitleBar.setLeftText(local);
         mSlidingMenu.toggle();
+        mHomeActivity.stopLocation();
     }
 }

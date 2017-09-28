@@ -2,14 +2,11 @@ package org.hades.sue.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
-import org.hades.sue.utils.MessageEvent;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
@@ -63,6 +60,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        EventBus.getDefault().post(new MessageEvent("0"));
+
     }
 }

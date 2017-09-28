@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.hades.sue.activity.BeforeBodyCheckActivity">
+
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:id="@+id/my_title_bar_login"
+        style="@style/TitleBar"
+        app:bgatitlebar_leftText="未知"
+        app:bgatitlebar_rightDrawable="@drawable/selector_nav_pop"
+        app:bgatitlebar_titleText="@string/app_name" />
+
+</LinearLayout>

@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/padding_15dp"
+    android:paddingLeft="@dimen/padding_10dp"
+    android:paddingRight="@dimen/padding_10dp"
+    >
 
-    <ImageView
+    <org.hades.sue.view.BodyCheckModuleView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/uoko_guide_background_1"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_bodycheck_month"
+        />
+
+
+    <include
+        layout="@layout/g_line_horizontal"/>
+
+    <org.hades.sue.view.BodyCheckModuleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_bodycheck_before_sym"
         />
 
 </LinearLayout>

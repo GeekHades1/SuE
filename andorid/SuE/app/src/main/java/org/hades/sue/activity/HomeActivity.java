@@ -203,13 +203,19 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         } else {
             // 定位失败
             Log.e(TAG, "定位失败");
-            mTitleBar.setLeftText("未知");
-            locationManager.removeUpdates(this);
+            if (mCurPage == 0){
+                mTitleBar.setLeftText("未知");
+                locationManager.removeUpdates(this);
+            }
         }
     }
 
     @Override
     public void onStatusUpdate(String name, int status, String desc) {
 
+    }
+
+    public void stopLocation(){
+        locationManager.removeUpdates(this);
     }
 }
