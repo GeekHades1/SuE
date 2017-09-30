@@ -14,6 +14,7 @@ import com.tencent.map.geolocation.TencentLocationListener;
 import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
 
+import org.greenrobot.eventbus.EventBus;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
@@ -39,6 +40,8 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private IHomePresenter presenter;
     TencentLocationManager locationManager;
+
+    private boolean canChange = false;
 
 
     private int mCurPage = 0;
@@ -116,8 +119,9 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             case R.id.action_mine:
                 mCurPage = 2;
                 break;
+
         }
-        if (mPrePage != mCurPage) {
+        if ((mPrePage != mCurPage) ) {
             changeFragment();
         }
         return true;
@@ -203,7 +207,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         } else {
             // 定位失败
             Log.e(TAG, "定位失败");
-            if (mCurPage == 0){
+            if (mCurPage == 0) {
                 mTitleBar.setLeftText("未知");
                 locationManager.removeUpdates(this);
             }
@@ -215,7 +219,25 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     }
 
-    public void stopLocation(){
+    public void stopLocation() {
         locationManager.removeUpdates(this);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            //EventBus.getDefault().register(this);
+        }
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //EventBus.getDefault().unregister(this);
+    }
+
 }
+

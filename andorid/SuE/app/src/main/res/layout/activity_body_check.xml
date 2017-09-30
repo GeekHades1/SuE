@@ -8,10 +8,9 @@
     tools:context="org.hades.sue.activity.MonthBodyCheckActivity">
 
     <cn.bingoogolapple.titlebar.BGATitleBar
-        android:id="@+id/my_title_bar_login"
+        android:id="@+id/my_title_bar"
         style="@style/TitleBar"
-        app:bgatitlebar_leftText="未知"
-        app:bgatitlebar_rightDrawable="@drawable/selector_nav_pop"
+        app:bgatitlebar_leftDrawable="@drawable/de_title_back"
         app:bgatitlebar_titleText="@string/app_name" />
 
 </LinearLayout>

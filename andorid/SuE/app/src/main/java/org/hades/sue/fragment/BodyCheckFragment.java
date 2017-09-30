@@ -77,6 +77,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.item_bodycheck_month) {
+            mMonthCheck.setEnabled(false);
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -86,6 +87,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
                     }
             ,800);
         } else if (view.getId() == R.id.item_bodycheck_before_sym) {
+            mBeforeSym.setEnabled(false);
             new Handler().postDelayed(
                     new Runnable() {
                         @Override
@@ -95,5 +97,12 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
                     }
                     ,800);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMonthCheck.setEnabled(true);
+        mBeforeSym.setEnabled(true);
     }
 }

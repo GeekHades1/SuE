@@ -19,21 +19,31 @@
                 layout="@layout/layout_mine_user_information"
                 />
 
-            <include
-                android:id="@+id/layout_mine_doctor"
-                layout="@layout/layout_mine_module" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/ll_item_user_op_block"
+                android:visibility="gone"
+                >
+                <include
+                    android:id="@+id/layout_mine_doctor"
+                    layout="@layout/layout_mine_module" />
 
-            <include layout="@layout/g_line_horizontal" />
+                <include layout="@layout/g_line_horizontal" />
 
-            <include
-                android:id="@+id/layout_mine_medical_record"
-                layout="@layout/layout_mine_module" />
+                <include
+                    android:id="@+id/layout_mine_medical_record"
+                    layout="@layout/layout_mine_module" />
 
-            <include layout="@layout/g_line_horizontal" />
+                <include layout="@layout/g_line_horizontal" />
 
-            <include
-                android:id="@+id/layout_mine_setting"
-                layout="@layout/layout_mine_module" />
+                <include
+                    android:id="@+id/layout_mine_setting"
+                    layout="@layout/layout_mine_module" />
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

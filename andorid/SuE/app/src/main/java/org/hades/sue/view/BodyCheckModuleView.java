@@ -94,11 +94,11 @@ public class BodyCheckModuleView extends LinearLayout implements BodyCheckModule
 
     @Override
     public void onEnd() {
-
+        setEnabled(true);
     }
 
     @Override
     public void onStart() {
-
+        //setEnabled(false);
     }
 }
