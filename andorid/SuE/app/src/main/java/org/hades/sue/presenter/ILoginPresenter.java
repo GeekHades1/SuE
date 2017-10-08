@@ -1,4 +1,4 @@
-package org.hades.sue.presenter.impl;
+package org.hades.sue.presenter;
 
 import org.hades.sue.base.BasePresenter;
 import org.hades.sue.common.LoginMsg;

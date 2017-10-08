@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="org.hades.sue.activity.RegisterActivity">
 
     <cn.bingoogolapple.titlebar.BGATitleBar
-        android:id="@+id/my_title_bar_register"
+        android:id="@+id/my_title_bar_login"
         style="@style/TitleBar"
-        app:bgatitlebar_leftText="未知"
-        app:bgatitlebar_rightDrawable="@drawable/selector_nav_pop"
-        app:bgatitlebar_titleText="@string/app_name" />
+        app:bgatitlebar_leftDrawable="@drawable/de_title_back"
+        app:bgatitlebar_titleText="注册" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
         android:background="@color/colorWhite"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -34,12 +35,6 @@
             android:hint="@string/login_username"
             android:padding="@dimen/padding_15dp" />
 
-        <EditText
-            android:id="@+id/register_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="昵称"
-            android:padding="@dimen/padding_15dp" />
 
         <EditText
             android:id="@+id/register_password"
@@ -62,4 +57,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

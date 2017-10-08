@@ -2,8 +2,6 @@ package org.hades.sue.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import org.hades.sue.R;
@@ -14,7 +12,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class RegisterActivity extends BaseActivity {
 
-    @BindView(R.id.my_title_bar_register)
+    @BindView(R.id.my_title_bar_login)
     BGATitleBar mTitleBar;
 
     @Override
@@ -34,7 +32,36 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void initViews() {
+        initBar();
+    }
 
+    private void initBar() {
+        mTitleBar.setVisibility(View.VISIBLE);
+        mTitleBar.setDelegate(new BGATitleBar.Delegate() {
+            @Override
+            public void onClickLeftCtv() {
+                closeThis();
+            }
+
+            @Override
+            public void onClickTitleCtv() {
+
+            }
+
+            @Override
+            public void onClickRightCtv() {
+
+            }
+
+            @Override
+            public void onClickRightSecondaryCtv() {
+
+            }
+        });
+    }
+
+    private void closeThis() {
+        this.finish();
     }
 
     @Override

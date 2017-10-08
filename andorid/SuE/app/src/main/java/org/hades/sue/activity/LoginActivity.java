@@ -10,8 +10,9 @@ import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.common.LoginMsg;
-import org.hades.sue.presenter.impl.ILoginPresenter;
+import org.hades.sue.presenter.ILoginPresenter;
 import org.hades.sue.presenter.impl.LoginPresenter;
+import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.Values;
 
 import butterknife.BindView;
@@ -63,6 +64,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     private void login(String username,String psw) {
         LoginMsg msg = mPresenter.login(username, psw);
+        if (msg.state == -1) {
+            ToastUtils.showShort(this, msg.msg);
+        }
     }
 
     private void initBar() {
@@ -107,7 +111,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     }
 
     private void enterRegister() {
-        RegisterActivity.startActivity(this);
+        //RegisterActivity.startActivity(this);
     }
 
     @Override
