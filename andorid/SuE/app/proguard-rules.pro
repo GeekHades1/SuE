@@ -51,4 +51,8 @@
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
+# retrofit
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+
 

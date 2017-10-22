@@ -23,10 +23,10 @@
         android:padding="@dimen/padding_20dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_marginTop="@dimen/padding_20dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/login_top_img" />
 
         <EditText
             android:id="@+id/register_number"
@@ -34,6 +34,40 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_username"
             android:padding="@dimen/padding_15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="@dimen/padding_5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize_18"
+                android:text="S-"
+                />
+            <EditText
+                android:id="@+id/et_verifi_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLength="6"
+                android:inputType="number"
+                android:hint="@string/verification_code"
+                />
+            <TextView
+                android:id="@+id/tv_send_verifi_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/send_verifi_code"
+                style="@style/tv_layout_popular_module_btn"
+                android:padding="@dimen/padding_10dp"
+                />
+
+        </LinearLayout>
 
 
         <EditText
@@ -43,16 +77,24 @@
             android:hint="@string/login_password"
             android:inputType="textPassword"
             android:padding="@dimen/padding_15dp" />
-
-        <Button
-            android:id="@+id/register_btn"
+        <EditText
+            android:id="@+id/register_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
-            android:background="@drawable/login_button_bg"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:padding="@dimen/padding_15dp" />
+
+
+
+        <TextView
+            android:id="@+id/register_btn"
+            style="@style/tv_layout_popular_module_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10dp"
             android:padding="@dimen/padding_15dp"
-            android:text="注册"
-            android:textColor="@color/colorWhite"
+            android:text="@string/register"
             android:textSize="17sp" />
 
     </LinearLayout>

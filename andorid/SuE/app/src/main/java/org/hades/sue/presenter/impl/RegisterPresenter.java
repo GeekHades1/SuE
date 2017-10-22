@@ -4,13 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import org.hades.sue.common.LoginMsg;
-import org.hades.sue.presenter.ILoginPresenter;
+import org.hades.sue.presenter.IRegisterPresenter;
 
 /**
- * Created by Hades on 2017/9/30.
+ * Created by Hades on 2017/10/22.
  */
 
-public class LoginPresenter implements ILoginPresenter {
+public class RegisterPresenter implements IRegisterPresenter {
 
     String regexPhone = "^[1][3,4,5,7,8][0-9]{9}$";
 
@@ -19,23 +19,6 @@ public class LoginPresenter implements ILoginPresenter {
 
     }
 
-    @Override
-    public LoginMsg login(String username, String psw) {
-        LoginMsg msg = new LoginMsg(0);
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(psw)) {
-            msg.msg = "账号或密码不能为空";
-            msg.state = -1;
-            return msg;
-        }
-        msg.msg = "验证成功！";
-        return msg;
-    }
-
-    /**
-     * 验证手机号是否符合规则
-     * @param phone
-     * @return
-     */
     @Override
     public boolean checkPhone(String phone) {
         try {
@@ -49,6 +32,11 @@ public class LoginPresenter implements ILoginPresenter {
             e.printStackTrace();
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean register(LoginMsg msg) {
         return false;
     }
 }

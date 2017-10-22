@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Utils {
 
     //盐
-    private static final String SLAT = "Hi,IMGeekHades";
+    private static final String SLAT = "ThisIsSuETeam";
 
     public static String encoder(String psw) {
         //进行加盐操作

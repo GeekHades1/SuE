@@ -138,7 +138,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             case 0:
                 if (mHomeFragment == null) {
                     mHomeFragment = new HomeFragment();
-                    ft.add(R.id.fm_content, mHomeFragment,
+                    ft.add(R.id.fl_container, mHomeFragment,
                             HomeFragment.class.getSimpleName());
                     fragments[mCurPage] = mHomeFragment;
                 }
@@ -146,7 +146,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             case 1:
                 if (mBodyCheckFragment == null) {
                     mBodyCheckFragment = new BodyCheckFragment();
-                    ft.add(R.id.fm_content, mBodyCheckFragment,
+                    ft.add(R.id.fl_container, mBodyCheckFragment,
                             BodyCheckFragment.class.getSimpleName());
                     fragments[mCurPage] = mBodyCheckFragment;
                 }
@@ -154,7 +154,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             case 2:
                 if (mMineFragment == null) {
                     mMineFragment = new MineFragment();
-                    ft.add(R.id.fm_content, mMineFragment,
+                    ft.add(R.id.fl_container, mMineFragment,
                             MineFragment.class.getSimpleName());
                     fragments[mCurPage] = mMineFragment;
                 }

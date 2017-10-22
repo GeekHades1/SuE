@@ -5,6 +5,12 @@ package org.hades.sue.utils;
  */
 
 public class Values {
+
+    /**
+     * 服务器地址
+     */
+    public static final String BASE_URL = "http://120.27.126.45/Sue/";
+
     public static final String SNAME = "SuE";
 
     /**
@@ -12,8 +18,18 @@ public class Values {
      */
     public static final String isFirst = "isFirst";
 
-    /*
-    s是否登录
+    /**
+     * 是否登录
      */
     public static final String isLogin = "isLogin";
+
+    /**
+     * 上一次登陆的时间
+     */
+    public static final String LAST_LOGIN_TIME = "last_login";
+
+    /**
+     * 一周里的秒时间
+     */
+    public static final int WEEK_TIME = 7 * 24 * 60 * 60;
 }

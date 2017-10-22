@@ -2,6 +2,7 @@ package org.hades.sue.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
 
-    public abstract int getLayoutId();
+    public abstract @LayoutRes int getLayoutId();
 
     public abstract void initViews();
 

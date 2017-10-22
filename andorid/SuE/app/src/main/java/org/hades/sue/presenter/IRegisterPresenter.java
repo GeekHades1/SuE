@@ -4,10 +4,10 @@ import org.hades.sue.base.BasePresenter;
 import org.hades.sue.common.LoginMsg;
 
 /**
- * Created by Hades on 2017/9/30.
+ * Created by Hades on 2017/10/22.
  */
 
-public interface ILoginPresenter extends BasePresenter {
-    LoginMsg login(String username,String psw);
+public interface IRegisterPresenter extends BasePresenter {
     boolean checkPhone(String phone);
+    boolean register(LoginMsg msg);
 }
