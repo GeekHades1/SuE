@@ -10,8 +10,13 @@
     <string name="login_register">注册账号</string>
     <string name="register">注册</string>
     <string name="login_tips">速医生Su-e</string>
+
+    <string name="register_phone">申请注册的手机号为:(+86) %s</string>
+
     <string name="send_verifi_code">发送验证码</string>
+    <string name="tips_verifi_code">请先填写手机号码</string>
     <string name="after_send_verifi_code">请%d(s)后再点击</string>
+
     <string name="no_login">您还没有登陆，选择</string>
 
 </resources>

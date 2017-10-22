@@ -1,7 +1,7 @@
 package org.hades.sue.presenter;
 
 import org.hades.sue.base.BasePresenter;
-import org.hades.sue.common.LoginMsg;
+import org.hades.sue.common.UserMsg;
 
 /**
  * Created by Hades on 2017/10/22.
@@ -9,5 +9,5 @@ import org.hades.sue.common.LoginMsg;
 
 public interface IRegisterPresenter extends BasePresenter {
     boolean checkPhone(String phone);
-    boolean register(LoginMsg msg);
+    boolean register(UserMsg msg);
 }

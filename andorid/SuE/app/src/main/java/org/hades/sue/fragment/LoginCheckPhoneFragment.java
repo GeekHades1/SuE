@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.hades.sue.R;
 import org.hades.sue.activity.LoginActivity;
 import org.hades.sue.base.BaseFragment;
-import org.hades.sue.common.LoginMsg;
+import org.hades.sue.common.UserMsg;
 
 import butterknife.BindView;
 
@@ -45,7 +45,7 @@ public class LoginCheckPhoneFragment extends BaseFragment
 
     @Override
     public void onClick(View v) {
-        LoginMsg msg = new LoginMsg(1);
+        UserMsg msg = new UserMsg(1);
         switch (v.getId()) {
             case R.id.login_btn:
                 msg.state = LoginActivity.NEXT_STEP_STATE;

@@ -12,7 +12,7 @@ import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
-import org.hades.sue.common.LoginMsg;
+import org.hades.sue.common.UserMsg;
 import org.hades.sue.fragment.LoginCheckPhoneFragment;
 import org.hades.sue.fragment.LoginCheckPswFragment;
 import org.hades.sue.presenter.ILoginPresenter;
@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     LoginCheckPhoneFragment  phoneFragment = null;
     LoginCheckPswFragment    pswFragment = null;
 
-    private LoginMsg      mPostMsg = new LoginMsg(200);
+    private UserMsg mPostMsg = new UserMsg(200);
 
 
 
@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
             public void onClickLeftCtv() {
                 if (mCurPage != 1){
                     isLogin = false;
-                    sendMsgAndFinish();
+                    loginSuccessAndFinish();
                 }else {
                     mPrePage = mCurPage;
                     mCurPage = 0;
@@ -127,9 +127,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     }
 
     /**
-     * 更改登陆状态并且发送退出消息给HomeActivity
+     * 成功登陆记录状态
      */
-    private void sendMsgAndFinish() {
+    private void loginSuccessAndFinish() {
         App.mShareP.setBoolean(Values.isLogin,isLogin);
         if (isLogin){
             long curTime = System.currentTimeMillis();
@@ -217,22 +217,48 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginPageEvent(LoginMsg msg){
-        if (msg.state == NEXT_STEP_STATE){
-            if (mPresenter.checkPhone(msg.username)) {
+    public void onLoginPageEvent(UserMsg msg){
+        switch (msg.state){
+            case NEXT_STEP_STATE:
+                doNextStep(msg);
+                break;
+            case LOGIN_STATE:
+                mPostMsg.passwordMD5 = msg.passwordMD5;
+                if(doLogin()){
+                    isLogin = true;
+                    loginSuccessAndFinish();
+                }else {
+                    ToastUtils.showShort(this,"登录失败！");
+                }
+                break;
+            case REGISTER_STATE:
+                RegisterActivity.startActivity(this);
+                break;
+        }
+    }
+
+    private void doNextStep(UserMsg msg){
+        if (mPresenter.checkPhone(msg.username)) {
+            if(isHasUser()){
                 mPrePage = mCurPage;
                 mCurPage = msg.state;
                 mPostMsg.username = msg.username;
                 changeFragment();
             }else {
-                ToastUtils.showShort(this,"输入手机号有误");
+                ToastUtils.showShort(this,"该手机号码尚未注册！");
             }
-        }else if (msg.state == LOGIN_STATE){
-            mPostMsg.passwordMD5 = msg.passwordMD5;
-            //登陆
-            ToastUtils.showShort(this,mPostMsg.toString());
-        } else if (msg.state == REGISTER_STATE) {
-            RegisterActivity.startActivity(this);
+        }else {
+            ToastUtils.showShort(this,"输入手机号有误");
         }
+    }
+
+    private boolean isHasUser() {
+        //TODO: 增加账号存在检测
+        return true;
+    }
+
+    private boolean doLogin() {
+
+        return false;
     }
 }

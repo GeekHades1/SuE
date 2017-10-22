@@ -3,7 +3,7 @@ package org.hades.sue.presenter.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
-import org.hades.sue.common.LoginMsg;
+import org.hades.sue.common.UserMsg;
 import org.hades.sue.presenter.IRegisterPresenter;
 
 /**
@@ -36,7 +36,7 @@ public class RegisterPresenter implements IRegisterPresenter {
     }
 
     @Override
-    public boolean register(LoginMsg msg) {
+    public boolean register(UserMsg msg) {
         return false;
     }
 }
