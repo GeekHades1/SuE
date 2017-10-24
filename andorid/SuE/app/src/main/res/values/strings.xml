@@ -17,6 +17,6 @@
     <string name="tips_verifi_code">请先填写手机号码</string>
     <string name="after_send_verifi_code">请%d(s)后再点击</string>
 
-    <string name="no_login">您还没有登陆，选择</string>
+    <string name="no_login">您还没有登录，选择</string>
 
 </resources>

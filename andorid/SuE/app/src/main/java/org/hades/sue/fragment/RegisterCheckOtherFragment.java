@@ -12,6 +12,8 @@ import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.activity.RegisterActivity;
 import org.hades.sue.base.BaseFragment;
+import org.hades.sue.bean.RData;
+import org.hades.sue.bean.RespoBean;
 import org.hades.sue.common.UserMsg;
 import org.hades.sue.utils.MD5Utils;
 import org.hades.sue.utils.ToastUtils;
@@ -20,6 +22,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.ResourceObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Hades on 2017/10/22.
@@ -156,6 +161,27 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
     }
 
     private void sendVerificationCode() {
+        App.mSueService.sendVerifiCode(RegisterActivity.NUMBER)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ResourceObserver<RData<RespoBean>>() {
+                    @Override
+                    public void onNext(RData<RespoBean> data) {
+                        if (data.data.state){
+                            ToastUtils.showShort(App.mContext, data.data.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         mTimer = new Timer();
         mSendVerifiCodeTv.setEnabled(false);
         //设置一分钟后再次点击

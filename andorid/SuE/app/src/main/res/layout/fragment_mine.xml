@@ -41,6 +41,9 @@
                 <include
                     android:id="@+id/layout_mine_setting"
                     layout="@layout/layout_mine_module" />
+                <include
+                    android:id="@+id/layout_mine_logout"
+                    layout="@layout/layout_mine_module" />
             </LinearLayout>
 
 

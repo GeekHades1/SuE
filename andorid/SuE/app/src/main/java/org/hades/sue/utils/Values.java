@@ -9,7 +9,7 @@ public class Values {
     /**
      * 服务器地址
      */
-    public static final String BASE_URL = "http://120.27.126.45/Sue/";
+    public static final String BASE_URL = "http://120.27.126.45:8080/sue/";
 
     public static final String SNAME = "SuE";
 
@@ -22,6 +22,11 @@ public class Values {
      * 是否登录
      */
     public static final String isLogin = "isLogin";
+
+    /**
+     * 用户登录的手机号
+     */
+    public static final String loginPhone = "loginPhone";
 
     /**
      * 上一次登陆的时间
