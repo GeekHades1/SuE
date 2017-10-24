@@ -44,6 +44,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
     private void initBeforeSymCheck() {
         mBeforeSym.setTag("before");
         mBeforeSym.setMainText("病状确诊");
+        mBeforeSym.setLeftIcon(R.drawable.before_bodycheck);
         mBeforeSym.setDetailsText("帮助您快速确定自己的病情，有目的的推荐您药物以及相关医生");
         mBeforeSym.setOnClickListener(this);
     }
@@ -51,6 +52,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
     private void initMonthCheck() {
         mMonthCheck.setTag("month");
         mMonthCheck.setMainText("每月体检");
+        mMonthCheck.setLeftIcon(R.drawable.month_bodycheck);
         mMonthCheck.setDetailsText("每月体检可以是自己更加了解自己的身体情况，推荐！");
         mMonthCheck.setOnClickListener(this);
     }

@@ -92,6 +92,26 @@ public class SpUtils {
         return sp.getString(key, defValue);
     }
 
+
+    /**
+     * put a Long
+     * @param key
+     * @param value
+     */
+    public void setLong(String key,long value){
+        sp.edit().putLong(key, value).commit();
+    }
+
+    /**
+     * get a long
+     * @param key
+     * @param defValue
+     * @return
+     */
+    public long getLong(String key,long defValue){
+        return sp.getLong(key, defValue);
+    }
+
     /**
      * remove a node by key;
      * @param key

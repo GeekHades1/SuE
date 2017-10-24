@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context="org.hades.sue.activity.LoginActivity">
 
     <cn.bingoogolapple.titlebar.BGATitleBar
@@ -13,105 +14,21 @@
         app:bgatitlebar_leftDrawable="@drawable/de_title_back"
         app:bgatitlebar_titleText="登陆" />
 
-    <LinearLayout
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/login_top_img"
+        android:padding="@dimen/padding_5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/padding_20dp"
+        android:scaleType="fitXY"/>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@id/fl_container"
+        />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_20dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_20dp"
-            android:background="@drawable/g_edit_text_bg"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/et_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/login_username"
-                android:padding="@dimen/padding_15dp" />
-
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/login_password"
-                android:inputType="textPassword"
-                android:padding="@dimen/padding_15dp" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/login_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp"
-            style="@style/tv_layout_popular_module_btn"
-            android:padding="@dimen/padding_15dp"
-            android:text="@string/login_login"
-            android:textSize="17sp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12dp">
-
-            <TextView
-                android:id="@+id/forget_password_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login_forget_possword"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/register_user_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/login_register"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_50dp"
-            android:text="其他登录方式"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
-
-        <ImageView
-            android:id="@+id/wechat_login"
-            android:layout_width="@dimen/padding_30dp"
-            android:layout_height="@dimen/padding_30dp"
-            android:layout_marginTop="@dimen/margin_12dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_50dp"
-            android:text="@string/login_tips"
-            android:textSize="15sp" />
-
-    </LinearLayout>
 
 </LinearLayout>
