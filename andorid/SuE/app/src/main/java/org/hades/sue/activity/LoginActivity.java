@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     public static final int LOGIN_STATE = 2;
     public static final int REGISTER_STATE = -1;
 
-    @BindView(R.id.my_title_bar_login)
+    @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
 
     private BaseFragment fragments[] = new BaseFragment[2];
@@ -253,7 +253,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     }
 
     private void isHasUser(final UserMsg msg) {
-        //TODO: 增加账号存在检测
         App.mSueService.checkPhone(msg.username)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -321,4 +320,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
                     }
                 });
     }
+
+
 }

@@ -175,8 +175,12 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
         }
     }
 
+    /**
+     * 退出登录操作
+     */
     private void logout() {
         App.mShareP.setBoolean(Values.isLogin, false);
+        App.mShareP.remove(Values.loginPhone);
         App.mShareP.remove(Values.LAST_LOGIN_TIME);
         noLoginView();
     }

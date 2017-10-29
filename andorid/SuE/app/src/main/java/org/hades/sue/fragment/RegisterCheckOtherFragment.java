@@ -1,9 +1,11 @@
 package org.hades.sue.fragment;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,7 +32,8 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Hades on 2017/10/22.
  */
 
-public class RegisterCheckOtherFragment extends BaseFragment implements View.OnClickListener {
+public class RegisterCheckOtherFragment extends BaseFragment implements
+        View.OnClickListener{
 
     @BindView(R.id.et_verifi_code)
     EditText mVerifiCodeEt;
@@ -115,6 +118,7 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
         switch (v.getId()) {
             case R.id.tv_send_verifi_code:
                 sendVerificationCode();
+                hideSoftWindow(mSendVerifiCodeTv);
                 break;
             case R.id.register_btn:
                 if (checkEmpty()){
@@ -123,6 +127,7 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
                         EventBus.getDefault().post(mPostMsg);
                     }
                 }
+                hideSoftWindow(mConfirmPswEt);
                 break;
         }
     }
@@ -197,4 +202,15 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
             }
         }, 0, 1000);
     }
+
+    private void hideSoftWindow(View view){
+        InputMethodManager imm = (InputMethodManager)
+                App.mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+    }
+
+
 }

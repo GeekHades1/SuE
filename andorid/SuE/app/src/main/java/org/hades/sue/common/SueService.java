@@ -1,9 +1,12 @@
 package org.hades.sue.common;
 
+import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.LoginBean;
 import org.hades.sue.bean.RData;
 import org.hades.sue.bean.RespoBean;
 import org.hades.sue.bean.UserBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -48,7 +51,24 @@ public interface SueService {
     Observable<RData<LoginBean>> login(@Field("phone") String phone,
                                        @Field("password") String psw);
 
+    /**
+     * 获取用户信息
+     * @param phone
+     * @return
+     */
     @FormUrlEncoded
     @POST("usr/getUserInfo")
     Observable<RData<UserBean>> getUserInfo(@Field("phone") String phone);
+
+    /**
+     * 获取健康资讯
+     * @param start 获取的第一个下标
+     * @param count 获取的个数
+     * @return 资讯数组
+     */
+    @FormUrlEncoded
+    @POST("common/getNews")
+    Observable<RData<List<HeathNews>>> getHeathNews(@Field("start") int start,
+                                         @Field("count") int count);
+
 }

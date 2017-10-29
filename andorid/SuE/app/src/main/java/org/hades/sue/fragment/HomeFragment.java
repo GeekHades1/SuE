@@ -2,6 +2,7 @@ package org.hades.sue.fragment;
 
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -12,7 +13,11 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.taro.headerrecycle.adapter.SimpleRecycleAdapter;
 import com.taro.headerrecycle.helper.RecycleViewOnClickHelper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.hades.sue.App;
 import org.hades.sue.R;
+import org.hades.sue.activity.HomeActivity;
+import org.hades.sue.activity.WebActivity;
 import org.hades.sue.adapter.GridLocationAdapter;
 import org.hades.sue.adapter.HomeDoctorAdapterOption;
 import org.hades.sue.adapter.HomeEssayAdapterOption;
@@ -20,8 +25,9 @@ import org.hades.sue.adapter.HomeHospitalAdapterOption;
 import org.hades.sue.base.BaseFragment;
 import org.hades.sue.bean.AdBean;
 import org.hades.sue.bean.DoctorBean;
-import org.hades.sue.bean.EssayBean;
+import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.HospitalBean;
+import org.hades.sue.bean.RData;
 import org.hades.sue.helper.LayoutPopularModuleHelper;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.ViewUtils;
@@ -33,6 +39,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Hades on 2017/9/21.
@@ -41,6 +51,7 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 public class HomeFragment extends BaseFragment implements
         PopularTitleView.OnTitleMoreClickListener,AdapterView.OnItemClickListener {
 
+    private static final String TAG = HomeFragment.class.getSimpleName();
 
     @BindView(R.id.xref_view)
     XRefreshView xRefreshView;
@@ -160,9 +171,9 @@ public class HomeFragment extends BaseFragment implements
         essayClickHelper.setOnItemClickListener(new RecycleViewOnClickHelper.OnItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, RecyclerView.ViewHolder holder) {
-                EssayBean bean = (EssayBean) mEssayAdapter.getItem(position);
+                HeathNews bean = (HeathNews) mEssayAdapter.getItem(position);
                 if (bean != null) {
-                    ToastUtils.showShort(mHomeActivity, "点击文章");
+                    WebActivity.startActivity(App.mContext,bean);
                 }
                 return false;
             }
@@ -236,10 +247,10 @@ public class HomeFragment extends BaseFragment implements
         mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
                 , new HomeHospitalAdapterOption(), getHData());
         mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
+
         //init essay
-        mEssayAdapter = new SimpleRecycleAdapter(mHomeActivity,
-                new HomeEssayAdapterOption(), getEssay());
-        mPopularEssayHelper.mRvContent.setAdapter(mEssayAdapter);
+        getEssay();
+
 
         mGridAdapter = new GridLocationAdapter(mHomeActivity,getLocationData());
         gv_location.setAdapter(mGridAdapter);
@@ -279,12 +290,39 @@ public class HomeFragment extends BaseFragment implements
         return data;
     }
 
-    private List<EssayBean> getEssay() {
-        List<EssayBean> data = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            data.add(new EssayBean(true, "健康资讯测试文章----" + i, ""));
-        }
-        return data;
+    private void getEssay() {
+        App.mSueService.getHeathNews(0,5)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RData<List<HeathNews>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe 健康咨询");
+                    }
+
+                    @Override
+                    public void onNext(RData<List<HeathNews>> listRData){
+                        List<HeathNews> data = listRData.data;
+                        if (data != null) {
+                            mEssayAdapter = new SimpleRecycleAdapter(mHomeActivity,
+                                    new HomeEssayAdapterOption(), data);
+                            mPopularEssayHelper.mRvContent.setAdapter(mEssayAdapter);
+                        } else {
+                            Log.d(TAG, "资讯数据获取为空");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "资讯数据获取失败");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     @Override
@@ -294,7 +332,7 @@ public class HomeFragment extends BaseFragment implements
         } else if (mPopularHospitalHelper.isMoreIconOnClick(view)) {
             ToastUtils.showShort(mHomeActivity, "更多医院");
         } else if (mPopularEssayHelper.isMoreIconOnClick(view)) {
-            ToastUtils.showShort(mHomeActivity, "更多文章");
+            EventBus.getDefault().post(HomeActivity.MORE_NEWS);
         } else {
 
         }

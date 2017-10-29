@@ -38,7 +38,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
     public static final int REGISTER_STATE = 2;
 
 
-    @BindView(R.id.my_title_bar_login)
+    @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
 
     public static String NUMBER = "";
@@ -174,7 +174,6 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
     }
 
     private void isHasUser(final UserMsg msg) {
-        //TODO: 增加申请账号存在检测
         App.mSueService.checkPhone(msg.username)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

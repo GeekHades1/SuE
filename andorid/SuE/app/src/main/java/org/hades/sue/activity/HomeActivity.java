@@ -15,6 +15,8 @@ import com.tencent.map.geolocation.TencentLocationManager;
 import com.tencent.map.geolocation.TencentLocationRequest;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
@@ -41,11 +43,13 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private IHomePresenter presenter;
     TencentLocationManager locationManager;
 
-    private boolean canChange = false;
-
 
     private int mCurPage = 0;
     private int mPrePage = 0;
+
+    public static final int MORE_HOSPITAL = 0x0;
+    public static final int MORE_DOCTOR = 0x1;
+    public static final int MORE_NEWS = 0x2;
 
     @BindView(R.id.navigation)
     BottomNavigationView mBottomBar;
@@ -203,7 +207,10 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         if (TencentLocation.ERROR_OK == error) {
             // 定位成功
             Log.d(TAG, "city = " + location.getCity());
-            mTitleBar.setLeftText(location.getCity());
+            if (mCurPage == 0) {
+                mTitleBar.setLeftText(location.getCity());
+                locationManager.removeUpdates(this);
+            }
         } else {
             // 定位失败
             Log.e(TAG, "定位失败");
@@ -223,20 +230,42 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         locationManager.removeUpdates(this);
     }
 
+    /**
+     * 更多按钮点击响事件
+     * @param moreNum
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMoreClick(Integer moreNum){
+        Intent intent = new Intent();
+        switch (moreNum) {
+            case MORE_HOSPITAL:
+                break;
+            case MORE_NEWS:
+                intent.setClass(this, MoreNewsActivity.class);
+                break;
+            case MORE_DOCTOR:
+                break;
+                default:
+                    break;
+        }
+        startActivity(intent);
+        overridePendingTransition(R.anim.enter, R.anim.out);
+    }
+
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         if (!EventBus.getDefault().isRegistered(this)) {
-            //EventBus.getDefault().register(this);
+            EventBus.getDefault().register(this);
         }
     }
 
-
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //EventBus.getDefault().unregister(this);
+    protected void onStop() {
+        super.onStop();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
 }
