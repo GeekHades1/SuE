@@ -50,6 +50,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     public static final int MORE_HOSPITAL = 0x0;
     public static final int MORE_DOCTOR = 0x1;
     public static final int MORE_NEWS = 0x2;
+    public static final int OPEN_QR = 0x3;
 
     @BindView(R.id.navigation)
     BottomNavigationView mBottomBar;
@@ -231,25 +232,58 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
     /**
-     * 更多按钮点击响事件
-     * @param moreNum
+     * fragment点击响事件
+     * @param action
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoreClick(Integer moreNum){
-        Intent intent = new Intent();
-        switch (moreNum) {
+    public void onActionClick(Integer action){
+
+        switch (action) {
             case MORE_HOSPITAL:
                 break;
             case MORE_NEWS:
-                intent.setClass(this, MoreNewsActivity.class);
+                openMoreNews();
                 break;
             case MORE_DOCTOR:
+                break;
+            case OPEN_QR:
+                openQRScanner();
                 break;
                 default:
                     break;
         }
+
+    }
+
+    /**
+     * 打开二维码扫描Activity
+     */
+    private void openQRScanner() {
+        Intent intent = new Intent();
+        intent.setClass(this, QRScannerActivity.class);
         startActivity(intent);
+        addTranslateXYAnim();
+    }
+
+    /**
+     * 打开更多Activity
+     */
+    private void openMoreNews() {
+        Intent intent = new Intent();
+        intent.setClass(this, MoreNewsActivity.class);
+        startActivity(intent);
+        addTranslateXAnim();
+    }
+
+    /**
+     * 抽离出Activity切换动画 X(0) -> X(100)
+     */
+    private void addTranslateXAnim(){
         overridePendingTransition(R.anim.enter, R.anim.out);
+    }
+
+    private void addTranslateXYAnim(){
+        overridePendingTransition(R.anim.enter_x_y, R.anim.out_x_y);
     }
 
     @Override

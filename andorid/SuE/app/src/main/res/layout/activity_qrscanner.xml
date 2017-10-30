@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.hades.sue.activity.QRScannerActivity">
+
+    <cn.bingoogolapple.titlebar.BGATitleBar
+        android:id="@id/my_title_bar_back"
+        style="@style/TitleBar"
+        app:bgatitlebar_leftDrawable="@drawable/de_title_back"
+        app:bgatitlebar_titleText="扫描二维码" />
+
+    <cn.bingoogolapple.qrcode.zxing.ZXingView
+        android:id="@+id/zxingview"
+        style="@style/MatchMatch"
+        app:qrcv_animTime="1000"
+        app:qrcv_borderColor="@android:color/white"
+        app:qrcv_borderSize="1dp"
+        app:qrcv_cornerColor="@color/titleBar"
+        app:qrcv_cornerLength="20dp"
+        app:qrcv_cornerSize="3dp"
+        app:qrcv_maskColor="#33FFFFFF"
+        app:qrcv_rectWidth="250dp"
+        app:qrcv_scanLineColor="@color/titleBar"
+        app:qrcv_scanLineSize="2dp"
+        app:qrcv_topOffset="@dimen/padding_100dp" />
+
+</com.zhy.autolayout.AutoLinearLayout>

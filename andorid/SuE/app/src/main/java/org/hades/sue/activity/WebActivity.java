@@ -25,6 +25,8 @@ public class WebActivity extends BaseActivity {
 
     public static final String DATA_KEY = "data";
 
+    public static final String URL_KEY = "url";
+
     @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
 
@@ -57,12 +59,14 @@ public class WebActivity extends BaseActivity {
     }
 
     private void initWeb() {
+        mWebContent.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         //声明WebSettings子类
         WebSettings webSettings = mWebContent.getSettings();
 
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
 
         mWebContent.setWebViewClient(new WebViewClient(){
             @Override
@@ -133,8 +137,14 @@ public class WebActivity extends BaseActivity {
     @Override
     public void initData() {
         Bundle bundle = getIntent().getExtras();
-        HeathNews data = (HeathNews) bundle.getSerializable(DATA_KEY);
-        mWebContent.loadUrl(data.link);
+        if (bundle.containsKey(DATA_KEY)) {
+            HeathNews data = (HeathNews) bundle.getSerializable(DATA_KEY);
+            mWebContent.loadUrl(data.link);
+        } else if (bundle.containsKey(URL_KEY)) {
+            String url = bundle.getString(URL_KEY);
+            mWebContent.loadUrl(url);
+            mTitleBar.setTitleText("");
+        }
     }
 
     public static void startActivity(Context context, HeathNews data) {
@@ -146,5 +156,18 @@ public class WebActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    /**
+     * 通过URL来启动
+     * @param context
+     * @param url
+     */
+    public static void startActivity(Context context, String url) {
+        Intent intent = new Intent();
+        intent.setClass(context, WebActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(URL_KEY,url);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
 
 }

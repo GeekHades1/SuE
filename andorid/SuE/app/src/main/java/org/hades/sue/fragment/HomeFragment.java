@@ -108,7 +108,7 @@ public class HomeFragment extends BaseFragment implements
 
             @Override
             public void onClickRightCtv() {
-                ToastUtils.showLong(mHomeActivity, "点击右侧");
+                EventBus.getDefault().post(HomeActivity.OPEN_QR);
             }
 
             @Override
