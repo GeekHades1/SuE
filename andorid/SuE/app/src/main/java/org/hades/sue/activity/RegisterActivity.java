@@ -3,14 +3,18 @@ package org.hades.sue.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
+import org.hades.sue.bean.RData;
+import org.hades.sue.bean.RespoBean;
 import org.hades.sue.common.UserMsg;
 import org.hades.sue.fragment.RegisterCheckOtherFragment;
 import org.hades.sue.fragment.RegisterCheckPhoneFragment;
@@ -20,6 +24,10 @@ import org.hades.sue.utils.ToastUtils;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
 
@@ -30,7 +38,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
     public static final int REGISTER_STATE = 2;
 
 
-    @BindView(R.id.my_title_bar_login)
+    @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
 
     public static String NUMBER = "";
@@ -46,6 +54,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
 
     private int mCurPage = 0;
     private int mPrePage = -1;
+
 
 
     @Override
@@ -140,43 +149,97 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
     public void onRegisterEvent(UserMsg msg) {
         switch (msg.state) {
             case NEXT_STEP_STATE:
-                doNextStep(msg);
+                isHasUser(msg);
                 break;
             case REGISTER_STATE:
                 //点击注册按钮
+                Log.d(TAG,"注册！！！！");
                 mPostMsg.passwordMD5 = msg.passwordMD5;
                 mPostMsg.verifiCode = msg.verifiCode;
-                if(doRegister()){
-                    closeThis();
-                }
+                doRegister();
                 break;
         }
     }
 
     private void doNextStep(UserMsg msg) {
         if (mPresenter.checkPhone(msg.username)) {
-            if (isHasUser()){
                 mPrePage = mCurPage;
                 mCurPage = msg.state;
                 mPostMsg.username = msg.username;
                 NUMBER = msg.username;
                 changeFragment();
-            }else {
-                ToastUtils.showShort(this,"该手机号码已被注册！");
-            }
         }else {
             ToastUtils.showShort(this,"输入手机号有误");
         }
     }
 
-    private boolean isHasUser() {
-        //TODO: 增加申请账号存在检测
-        return true;
+    private void isHasUser(final UserMsg msg) {
+        App.mSueService.checkPhone(msg.username)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RData<RespoBean>>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(RData<RespoBean> data) {
+                        if (data.data.state){
+                            //已被注册
+                            ToastUtils.showShort(App.mContext,
+                                    "该手机号码已被注册！");
+                        }else {
+                            mPostMsg.username = msg.username;
+                            doNextStep(msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
-    private boolean doRegister() {
-        //ToastUtils.showShort(this,"注册！！！"+mPostMsg.toString());
-        return true;
+    private void doRegister() {
+        App.mSueService.register(mPostMsg.username,mPostMsg.passwordMD5,
+                mPostMsg.verifiCode)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RData<RespoBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG,mPostMsg.toString());
+                    }
+
+                    @Override
+                    public void onNext(RData<RespoBean> data) {
+                        ToastUtils.showShort(App.mContext,data.data.msg);
+                        if(data.data.state){
+                            //注册成功
+                            closeThis();
+                        }else {
+                            //注册失败
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 

@@ -1,9 +1,11 @@
 package org.hades.sue.fragment;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,6 +14,8 @@ import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.activity.RegisterActivity;
 import org.hades.sue.base.BaseFragment;
+import org.hades.sue.bean.RData;
+import org.hades.sue.bean.RespoBean;
 import org.hades.sue.common.UserMsg;
 import org.hades.sue.utils.MD5Utils;
 import org.hades.sue.utils.ToastUtils;
@@ -20,12 +24,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.ResourceObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Hades on 2017/10/22.
  */
 
-public class RegisterCheckOtherFragment extends BaseFragment implements View.OnClickListener {
+public class RegisterCheckOtherFragment extends BaseFragment implements
+        View.OnClickListener{
 
     @BindView(R.id.et_verifi_code)
     EditText mVerifiCodeEt;
@@ -110,6 +118,7 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
         switch (v.getId()) {
             case R.id.tv_send_verifi_code:
                 sendVerificationCode();
+                hideSoftWindow(mSendVerifiCodeTv);
                 break;
             case R.id.register_btn:
                 if (checkEmpty()){
@@ -118,6 +127,7 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
                         EventBus.getDefault().post(mPostMsg);
                     }
                 }
+                hideSoftWindow(mConfirmPswEt);
                 break;
         }
     }
@@ -156,6 +166,27 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
     }
 
     private void sendVerificationCode() {
+        App.mSueService.sendVerifiCode(RegisterActivity.NUMBER)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ResourceObserver<RData<RespoBean>>() {
+                    @Override
+                    public void onNext(RData<RespoBean> data) {
+                        if (data.data.state){
+                            ToastUtils.showShort(App.mContext, data.data.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         mTimer = new Timer();
         mSendVerifiCodeTv.setEnabled(false);
         //设置一分钟后再次点击
@@ -171,4 +202,15 @@ public class RegisterCheckOtherFragment extends BaseFragment implements View.OnC
             }
         }, 0, 1000);
     }
+
+    private void hideSoftWindow(View view){
+        InputMethodManager imm = (InputMethodManager)
+                App.mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+    }
+
+
 }

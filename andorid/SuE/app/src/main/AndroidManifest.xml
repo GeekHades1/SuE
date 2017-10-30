@@ -27,23 +27,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="TencentMapSDK"
             android:value="C5QBZ-IMUCG-ER3QV-IXTSS-XW6KS-A4BLY" />
+        <!-- Auto Layout 声明属性 -->
+        <meta-data
+            android:name="design_width"
+            android:value="1080" />
+        <meta-data
+            android:name="design_height"
+            android:value="1920" />
 
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.MonthBodyCheckActivity" />
-        <activity android:name=".activity.BeforeBodyCheckActivity"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".activity.MonthBodyCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BeforeBodyCheckActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.MoreNewsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350px"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_20dp"
+        >
+
+        <ImageView
+            android:id="@+id/news_img"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:layout_gravity="center"
+            android:src="@drawable/login_top_img"
+            android:scaleType="fitXY"
+            />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="@dimen/padding_2dp"
+                android:textSize="@dimen/textSize_14"
+                android:textStyle="bold"
+                tools:text="@string/titile_jkzx"
+                />
+
+            <TextView
+                android:id="@+id/news_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_title"
+                android:textSize="@dimen/textSize_12"
+                android:maxLines="2"
+                android:padding="@dimen/padding_2dp"
+                tools:text="@string/titile_jkzx" />
+
+            <TextView
+                android:id="@+id/news_date"
+                android:padding="@dimen/padding_2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/news_details"
+                android:textColor="@color/colorBlack"
+                tools:text="2017-10-10" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoFrameLayout>

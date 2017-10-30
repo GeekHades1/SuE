@@ -20,7 +20,8 @@ import org.hades.sue.bean.DoctorBean;
  * Created by taro on 16/10/17.
  */
 
-public class HomeDoctorAdapterOption extends SimpleRecycleAdapter.SimpleAdapterOption<DoctorBean> {
+public class HomeDoctorAdapterOption extends SimpleRecycleAdapter.
+        SimpleAdapterOption<DoctorBean> {
     @Override
     public int getViewType(int position) {
         return position;

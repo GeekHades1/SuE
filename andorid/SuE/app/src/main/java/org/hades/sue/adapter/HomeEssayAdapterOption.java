@@ -11,23 +11,24 @@ import com.taro.headerrecycle.adapter.HeaderRecycleViewHolder;
 import com.taro.headerrecycle.adapter.SimpleRecycleAdapter;
 
 import org.hades.sue.R;
-import org.hades.sue.bean.EssayBean;
+import org.hades.sue.bean.HeathNews;
 
 /**
  * Created by taro on 16/10/17.
  */
 
-public class HomeEssayAdapterOption extends SimpleRecycleAdapter.SimpleAdapterOption<EssayBean> {
+public class HomeEssayAdapterOption extends SimpleRecycleAdapter.
+        SimpleAdapterOption<HeathNews> {
     @Override
     public int getViewType(int position) {
         return position;
     }
 
     @Override
-    public void setViewHolder(EssayBean itemData, int position, @NonNull HeaderRecycleViewHolder holder) {
+    public void setViewHolder(HeathNews itemData, int position, @NonNull HeaderRecycleViewHolder holder) {
 
         TextView tvReserve = holder.getView(R.id.tv_popular_essay);
-        if (!itemData.isHot){
+        if (true){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 tvReserve.setCompoundDrawables(null
                 ,null,null,null);
