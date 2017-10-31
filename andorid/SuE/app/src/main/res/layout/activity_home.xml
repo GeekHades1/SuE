@@ -11,7 +11,7 @@
         android:id="@+id/my_title_bar"
         style="@style/TitleBar"
         app:bgatitlebar_leftText="未知"
-        app:bgatitlebar_rightDrawable="@drawable/selector_nav_pop"
+        app:bgatitlebar_rightDrawable="@drawable/qr_scanner_selected"
         app:bgatitlebar_titleText="@string/app_name" />
 
 

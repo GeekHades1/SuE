@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchMatch"
     android:id="@+id/rl_splash"
+    tools:background="@drawable/sue"
     >
+
+    <org.hades.sue.view.RotatePageView
+        android:id="@+id/rpv_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-500dp"
+        android:layout_centerHorizontal="true"
+        app:rpv_background="@drawable/sue_top"
+        app:rpv_duration="1500"
+        android:visibility="gone"
+        />
 
 
     <cn.bingoogolapple.bgabanner.BGABanner
@@ -33,4 +45,4 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

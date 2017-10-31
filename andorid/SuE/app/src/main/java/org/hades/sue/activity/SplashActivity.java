@@ -2,10 +2,12 @@ package org.hades.sue.activity;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.joker.annotation.PermissionsDenied;
@@ -15,6 +17,7 @@ import com.joker.api.Permissions4M;
 import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.utils.Values;
+import org.hades.sue.view.RotatePageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +48,12 @@ public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.rl_splash)
     RelativeLayout  mRlBg;
 
+    @BindView(R.id.rpv_top)
+    RotatePageView mRotateView;
+
+    @BindView(R.id.btn_guide_enter)
+    Button guide_enter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,16 +67,34 @@ public class SplashActivity extends AppCompatActivity {
             setBannerListener();
             processLogic();
         }else {
-            mRlBg.setBackgroundResource(R.drawable.sue);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    enterHome();
-                }
-            },1500);
+            noFirst();
         }
 
 
+    }
+
+    /**
+     * 不是第一次进入
+     */
+    private void noFirst() {
+        mBackgroundBanner.setVisibility(View.GONE);
+        mRotateView.setVisibility(View.VISIBLE);
+        mRotateView.setEndListener(new RotatePageView.OnAnimatorEndListener() {
+            @Override
+            public void animEnd() {
+                enterHome();
+            }
+        });
+        RelativeLayout.LayoutParams params =
+                (RelativeLayout.LayoutParams) mRotateView.getLayoutParams();
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int height = metrics.heightPixels;
+//            Log.d(TAG, "height =" + height);
+        int margin_top = (int)( height / 1.4f);
+        params.setMargins(0,-margin_top,0,0);
+        mRotateView.setLayoutParams(params);
+        mRotateView.startAnim();//开始动画
+        mRlBg.setBackgroundResource(R.drawable.sue);
     }
 
     private void initPermission() {
@@ -99,7 +126,8 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onClickEnterOrSkip() {
                     App.mShareP.setBoolean(Values.isFirst,false);
-                    enterHome();
+                    guide_enter.setVisibility(View.GONE);
+                    noFirst();
                 }
             });
     }

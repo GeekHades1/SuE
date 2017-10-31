@@ -16,6 +16,12 @@
 -->
 
 <resources>
+
+    <declare-styleable name="RotatePageView">
+        <attr name="rpv_background" format="reference" />
+        <attr name="rpv_duration" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="SmileyLoadingView">
         <!-- animation duration -->
         <attr name="duration" format="integer" />
