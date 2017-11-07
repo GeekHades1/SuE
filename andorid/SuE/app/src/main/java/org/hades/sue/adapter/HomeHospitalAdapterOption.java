@@ -31,10 +31,15 @@ public class HomeHospitalAdapterOption extends SimpleRecycleAdapter.SimpleAdapte
             ImageView ivDoctor = holder.getView(R.id.iv_item_popular_doctor_pic);
             TextView tvReserve = holder.getView(R.id.tv_item_popular_doctor_reserve);
             TextView tvName = holder.getView(R.id.tv_item_popular_hospital_name);
+            TextView tvDistance = holder.getView(R.id.tv_item_popular_hospital_distance);
             tvName.setText(itemData.name);
+            //增加距离
+            tvDistance.setText(String.format(App.mContext.getResources().
+                    getString(R.string.hospital_distance),
+                    itemData.distance));
             tvReserve.setText("详情");
             Glide.with(App.mContext)
-                    .load(R.drawable.icon_normal_kobe)
+                    .load(itemData.photo)
                     .into(ivDoctor);
         }
 

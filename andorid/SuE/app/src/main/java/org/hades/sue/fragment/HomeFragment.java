@@ -29,7 +29,9 @@ import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.HospitalBean;
 import org.hades.sue.bean.RData;
 import org.hades.sue.helper.LayoutPopularModuleHelper;
+import org.hades.sue.utils.POIUtils;
 import org.hades.sue.utils.ToastUtils;
+import org.hades.sue.utils.Values;
 import org.hades.sue.utils.ViewUtils;
 import org.hades.sue.view.PopularTitleView;
 import org.hades.sue.view.SmileyHeaderView;
@@ -49,7 +51,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class HomeFragment extends BaseFragment implements
-        PopularTitleView.OnTitleMoreClickListener,AdapterView.OnItemClickListener {
+        PopularTitleView.OnTitleMoreClickListener,
+        AdapterView.OnItemClickListener
+,POIUtils.HospitalCallBack{
 
     private static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -154,8 +158,13 @@ public class HomeFragment extends BaseFragment implements
         hospitalClickHelper.attachToRecycleView(mPopularHospitalHelper.mRvContent);
         hospitalClickHelper.setOnItemClickListener(new RecycleViewOnClickHelper.OnItemClickListener() {
             @Override
-            public boolean onItemClick(View view, int position, RecyclerView.ViewHolder holder) {
-                ToastUtils.showShort(mHomeActivity, "预约 h");
+            public boolean onItemClick(View view, int position,
+                                       RecyclerView.ViewHolder holder) {
+                HospitalBean bean = (HospitalBean)
+                        mHospitalAdapter.getItem(position);
+                if (bean != null) {
+                    //TODO:点击医院详情
+                }
                 return false;
             }
         });
@@ -237,16 +246,19 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void initData() {
+
+        //获取附近医院
+        POIUtils poiUtils = new POIUtils(getContext(),this);
+        poiUtils.getPOI("医院",App.mShareP.getString(
+                Values.LAST_LOCATION,"江门市"
+        ),0,3);
+        //
+
         ViewUtils.setBanner(mCbBanner, new ViewUtils.DefaultBannerHolder(), getAdData());
         //init doctor
         mDoctorAdapter = new SimpleRecycleAdapter
                 (mHomeActivity, new HomeDoctorAdapterOption(), getData());
         mPopularDoctorHelper.mRvContent.setAdapter(mDoctorAdapter);
-
-        //init hospital
-        mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
-                , new HomeHospitalAdapterOption(), getHData());
-        mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
 
         //init essay
         getEssay();
@@ -260,18 +272,9 @@ public class HomeFragment extends BaseFragment implements
     private List<String> getLocationData() {
         List<String> data = new ArrayList<>();
         data.add("江门");
-        data.add("广州");
-        data.add("深圳");
         return data;
     }
 
-    private List<HospitalBean> getHData() {
-        List<HospitalBean> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            data.add(new HospitalBean("人民医院"));
-        }
-        return data;
-    }
 
 
     private List<DoctorBean> getData() {
@@ -287,6 +290,7 @@ public class HomeFragment extends BaseFragment implements
         data.add(new AdBean(R.drawable.banner_test_0));
         data.add(new AdBean(R.drawable.banner_test_1));
         data.add(new AdBean(R.drawable.banner_test_2));
+        data.add(new AdBean(R.drawable.banner_test_3));
         return data;
     }
 
@@ -353,5 +357,17 @@ public class HomeFragment extends BaseFragment implements
         mTitleBar.setLeftText(local);
         mSlidingMenu.toggle();
         mHomeActivity.stopLocation();
+    }
+
+    /**
+     * 医院信息回调函数
+     * @param data
+     */
+    @Override
+    public void onLoad(List<HospitalBean> data) {
+        //init hospital
+        mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
+                , new HomeHospitalAdapterOption(), data);
+        mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
     }
 }

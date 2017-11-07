@@ -19,8 +19,8 @@
     <!-- 访问手机当前状态, 需要某些信息用于网络定位 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 打开摄像头 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!--震动-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 震动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -47,6 +47,12 @@
             android:name="TencentMapSDK"
             android:value="C5QBZ-IMUCG-ER3QV-IXTSS-XW6KS-A4BLY" />
         <!-- Auto Layout 声明属性 -->
+
+
+        <!-- 高德 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="12555006a348f112e3e1561880ad8b12"></meta-data>
         <meta-data
             android:name="design_width"
             android:value="1080" />
@@ -74,9 +80,10 @@
         <activity
             android:name=".activity.MoreNewsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".activity.QRScannerActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.QRScannerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MoreHospitalActivity"></activity>
     </application>
 
 </manifest>

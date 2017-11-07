@@ -20,7 +20,13 @@
         android:id="@+id/tv_item_popular_hospital_name"
         android:text="@string/app_name"
         />
-
+    <TextView
+        style="@style/tv_layout_popular_module_text"
+        android:layout_width="match_parent"
+        android:gravity="left"
+        android:id="@+id/tv_item_popular_hospital_distance"
+        android:text="@string/app_name"
+        />
 
     <TextView
         android:id="@+id/tv_item_popular_doctor_reserve"

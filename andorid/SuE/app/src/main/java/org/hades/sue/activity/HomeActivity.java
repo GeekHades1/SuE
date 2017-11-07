@@ -17,6 +17,7 @@ import com.tencent.map.geolocation.TencentLocationRequest;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
@@ -24,6 +25,7 @@ import org.hades.sue.fragment.BodyCheckFragment;
 import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.MineFragment;
 import org.hades.sue.presenter.IHomePresenter;
+import org.hades.sue.utils.Values;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
@@ -210,6 +212,14 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             Log.d(TAG, "city = " + location.getCity());
             if (mCurPage == 0) {
                 mTitleBar.setLeftText(location.getCity());
+                App.mShareP.setString(Values.LAST_LOCATION, location.getCity());
+                //存入经纬度
+                App.mShareP.setFloat(Values.LATITUDE, (float)
+                        location.getLatitude());
+                App.mShareP.setFloat(Values.LONGITUDE, (float)
+                        location.getLongitude());
+//                Log.d(TAG,"la:"+location.getLatitude()+
+//                        "\n long = "+location.getLongitude());
                 locationManager.removeUpdates(this);
             }
         } else {

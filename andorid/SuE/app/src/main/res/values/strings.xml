@@ -22,5 +22,6 @@
     <string name="titile_jkzx">健康资讯</string>
 
     <string name="news_date_f">%s-%s-%s</string>
+    <string name="hospital_distance">约%dm</string>
 
 </resources>
