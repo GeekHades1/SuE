@@ -82,6 +82,9 @@ public class BodyCheckModuleAnimator implements Animator.AnimatorListener{
         mAnimSet.start();
     }
 
+    public boolean isStarted(){
+        return mAnimSet.isStarted();
+    }
 
     @Override
     public void onAnimationStart(Animator animator) {

@@ -1,6 +1,7 @@
 package org.hades.sue.fragment;
 
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import org.hades.sue.R;
@@ -8,7 +9,6 @@ import org.hades.sue.activity.BeforeBodyCheckActivity;
 import org.hades.sue.activity.MonthBodyCheckActivity;
 import org.hades.sue.base.BaseFragment;
 import org.hades.sue.view.BodyCheckModuleView;
-
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
@@ -19,6 +19,8 @@ import cn.bingoogolapple.titlebar.BGATitleBar;
 
 public class BodyCheckFragment extends BaseFragment implements View.OnClickListener{
 
+    private static final String TAG = BodyCheckFragment.class.getSimpleName();
+
     private BGATitleBar mTitleBar;
 
     @BindView(R.id.item_bodycheck_month)
@@ -26,6 +28,8 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
 
     @BindView(R.id.item_bodycheck_before_sym)
     BodyCheckModuleView mBeforeSym;
+
+    private final MyHandler myHandler = new MyHandler();
 
 
     @Override
@@ -78,9 +82,12 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        mMonthCheck.setEnabled(false);
+        mBeforeSym.setEnabled(false);
+        mMonthCheck.setClickable(false);
+        mBeforeSym.setClickable(false);
         if (view.getId() == R.id.item_bodycheck_month) {
-            mMonthCheck.setEnabled(false);
-            new Handler().postDelayed(
+            myHandler.postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
@@ -89,8 +96,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
                     }
             ,800);
         } else if (view.getId() == R.id.item_bodycheck_before_sym) {
-            mBeforeSym.setEnabled(false);
-            new Handler().postDelayed(
+            myHandler.postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
@@ -106,5 +112,19 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
         super.onResume();
         mMonthCheck.setEnabled(true);
         mBeforeSym.setEnabled(true);
+        mMonthCheck.setClickable(true);
+        mBeforeSym.setClickable(true);
+    }
+
+    private final class MyHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

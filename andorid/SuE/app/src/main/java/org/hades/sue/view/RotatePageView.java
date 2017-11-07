@@ -94,12 +94,12 @@ public class RotatePageView extends View implements Animator.AnimatorListener{
         animator1.setDuration(duration);
         //animator1.setStartDelay(500);
 
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(this, "degreeZ", 0, 270);
-        animator2.setDuration(duration-200);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(this, "degreeZ", 0, 360);
+        animator2.setDuration(duration);
         //animator2.setStartDelay(500);
 
         ObjectAnimator animator3 = ObjectAnimator.ofFloat(this, "fixDegreeY", 0, 30);
-        animator3.setDuration(duration-500);
+        animator3.setDuration(duration);
         //animator3.setStartDelay(500);
 
         set.addListener(this);
@@ -117,37 +117,44 @@ public class RotatePageView extends View implements Animator.AnimatorListener{
         int x = centerX - bitmapWidth / 2;
         int y = centerY - bitmapHeight / 2;
 
-        //画变换的一半
-        //先旋转，再裁切，再使用camera执行3D动效,**然后保存camera效果**,最后再旋转回来
-        canvas.save();
-        camera.save();
-        canvas.translate(centerX, centerY);
-        canvas.rotate(-degreeZ);
-        camera.rotateY(degreeY);
-        camera.applyToCanvas(canvas);
-        //计算裁切参数时清注意，此时的canvas的坐标系已经移动
-        canvas.clipRect(0, -centerY, centerX, centerY);
-        canvas.rotate(degreeZ);
-        canvas.translate(-centerX, -centerY);
-        camera.restore();
-        canvas.drawBitmap(bitmap, x, y, paint);
-        canvas.restore();
+        if (degreeZ < 360){
+            //画变换的一半
+            //先旋转，再裁切，再使用camera执行3D动效,**然后保存camera效果**,最后再旋转回来
+            canvas.save();
+            camera.save();
+            canvas.translate(centerX, centerY);
+            canvas.rotate(-degreeZ);
+            camera.rotateY(degreeY);
+            camera.applyToCanvas(canvas);
+            //计算裁切参数时清注意，此时的canvas的坐标系已经移动
+            canvas.clipRect(0, -centerY, centerX, centerY);
+            canvas.rotate(degreeZ);
+            canvas.translate(-centerX, -centerY);
+            camera.restore();
+            canvas.drawBitmap(bitmap, x, y, paint);
+            canvas.restore();
 
-        //画不变换的另一半
-        canvas.save();
-        camera.save();
-        canvas.translate(centerX, centerY);
-        canvas.rotate(-degreeZ);
-        //计算裁切参数时清注意，此时的canvas的坐标系已经移动
-        canvas.clipRect(-centerX, -centerY, 0, centerY);
-        //此时的canvas的坐标系已经旋转，所以这里是rotateY
-        camera.rotateY(fixDegreeY);
-        camera.applyToCanvas(canvas);
-        canvas.rotate(degreeZ);
-        canvas.translate(-centerX, -centerY);
-        camera.restore();
-        canvas.drawBitmap(bitmap, x, y, paint);
-        canvas.restore();
+            //画不变换的另一半
+            canvas.save();
+            camera.save();
+            canvas.translate(centerX, centerY);
+            canvas.rotate(-degreeZ);
+            //计算裁切参数时清注意，此时的canvas的坐标系已经移动
+            canvas.clipRect(-centerX, -centerY, 0, centerY);
+            //此时的canvas的坐标系已经旋转，所以这里是rotateY
+            camera.rotateY(fixDegreeY);
+            camera.applyToCanvas(canvas);
+            canvas.rotate(degreeZ);
+            canvas.translate(-centerX, -centerY);
+            camera.restore();
+            canvas.drawBitmap(bitmap, x, y, paint);
+            canvas.restore();
+        }else {
+            canvas.save();
+            canvas.drawBitmap(bitmap, x, y, paint);
+            canvas.restore();
+        }
+
     }
 
     /**

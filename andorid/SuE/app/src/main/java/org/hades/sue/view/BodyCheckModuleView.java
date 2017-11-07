@@ -88,9 +88,15 @@ public class BodyCheckModuleView extends LinearLayout implements BodyCheckModule
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mAnim.startAnim();
+        if(MotionEvent.ACTION_DOWN == event.getAction()){
+            if (!mAnim.isStarted()){
+                mAnim.startAnim();
+            }
+        }
         return super.onTouchEvent(event);
     }
+
+
 
     @Override
     public void onEnd() {
