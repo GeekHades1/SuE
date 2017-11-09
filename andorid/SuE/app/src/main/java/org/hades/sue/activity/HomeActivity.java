@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
@@ -59,6 +60,9 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     @BindView(R.id.my_title_bar)
     BGATitleBar mTitleBar;
+
+    @BindView(R.id.fl_container)
+    FrameLayout container;
 
 
     @Override
@@ -250,6 +254,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
         switch (action) {
             case MORE_HOSPITAL:
+                openMoreHospital();
                 break;
             case MORE_NEWS:
                 openMoreNews();
@@ -263,6 +268,17 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
                     break;
         }
 
+    }
+
+    /**
+     * 打开更多医院资讯
+     */
+
+    private void openMoreHospital() {
+        Intent intent = new Intent();
+        intent.setClass(this, MoreHospitalActivity.class);
+        startActivity(intent);
+        addTranslateXAnim();
     }
 
     /**
@@ -313,12 +329,13 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void destroy() {
         //做清理工作
         //删除之前的定位位置
         App.mShareP.remove(Values.LATITUDE);
         App.mShareP.remove(Values.LONGITUDE);
+        Log.d(TAG, "onDestroy");
+        super.destroy();
     }
 }
 

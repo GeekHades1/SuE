@@ -1,31 +1,31 @@
 package org.hades.sue.bean;
 
 /**
- * Created by Hades on 2017/9/25.
+ * Created by Hades on 2017/11/9.
  *
- * 医生业务Bean
+ * 医生类
  */
-
 public class DoctorBean {
+    public int doctorId;
     public String name;
-    public String prof;
-    public String office;
+    public String img;
+    public String department;
+    public String job;
+    public String position;
+    public String hospital;
+    public String city;
 
-    public DoctorBean(String name) {
-        this.name = name;
-    }
-
-    public DoctorBean(String name, String prof, String office) {
-        this.name = name;
-        this.prof = prof;
-        this.office = office;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return "DoctorBean{" +
+                "doctorId=" + doctorId +
+                ", name='" + name + '\'' +
+                ", img='" + img + '\'' +
+                ", department='" + department + '\'' +
+                ", job='" + job + '\'' +
+                ", position='" + position + '\'' +
+                ", hospital='" + hospital + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

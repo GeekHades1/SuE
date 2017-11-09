@@ -55,8 +55,9 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.taro:headerrecycle:2.6.0'
     //图片库
-    compile 'com.github.bumptech.glide:glide:4.1.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
     implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
     compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'

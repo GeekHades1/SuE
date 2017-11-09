@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_15dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_item_popular_doctor_pic"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_80dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_normal_kobe"/>
+
+        <TextView
+            style="@style/tv_layout_popular_module_text"
+            android:layout_width="match_parent"
+            android:gravity="left"
+            android:id="@+id/tv_item_popular_hospital_name"
+            android:text="@string/app_name"
+            />
+        <TextView
+            style="@style/tv_layout_popular_module_text"
+            android:layout_width="match_parent"
+            android:gravity="left"
+            android:id="@+id/tv_item_popular_hospital_distance"
+            android:text="@string/app_name"
+            />
+
+        <TextView
+            android:id="@+id/tv_item_popular_doctor_reserve"
+            style="@style/tv_layout_popular_module_btn"
+            android:background="@drawable/shape_bg_mild_blue_round_rect"
+            android:text="预约"/>
+
+        <include
+            layout="@layout/g_line_horizontal"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

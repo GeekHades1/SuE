@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     android:paddingTop="@dimen/padding_15dp"
     android:paddingLeft="@dimen/padding_10dp"
     android:paddingRight="@dimen/padding_10dp"
