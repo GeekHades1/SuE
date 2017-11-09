@@ -35,7 +35,6 @@ public class MoreNewsAdapterOption extends SimpleRecycleAdapter.
         TextView title = holder.getView(R.id.news_title);
         TextView detail = holder.getView(R.id.news_details);
         TextView date = holder.getView(R.id.news_date);
-        //TODO:icon 保留
 
         Glide.with(holder.getRootView())
                 .load(itemData.img)

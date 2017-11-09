@@ -67,6 +67,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         if (mImmersionBar != null){
             mImmersionBar.destroy();
         }
+        destroy();
         super.onDestroy();
+    }
+
+    /**
+     * 防止冲突的销毁函数
+     */
+    public void destroy(){
     }
 }

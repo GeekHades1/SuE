@@ -90,16 +90,18 @@ public class RotatePageView extends View implements Animator.AnimatorListener{
      * 初始化动画
      */
     private void initAnimator() {
+
+
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(this, "degreeY", 0, -45);
         animator1.setDuration(duration);
         //animator1.setStartDelay(500);
 
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(this, "degreeZ", 0, 360);
-        animator2.setDuration(duration);
+        animator2.setDuration(duration-500);
         //animator2.setStartDelay(500);
 
         ObjectAnimator animator3 = ObjectAnimator.ofFloat(this, "fixDegreeY", 0, 30);
-        animator3.setDuration(duration);
+        animator3.setDuration(duration-700);
         //animator3.setStartDelay(500);
 
         set.addListener(this);

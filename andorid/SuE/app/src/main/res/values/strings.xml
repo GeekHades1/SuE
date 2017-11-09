@@ -20,6 +20,7 @@
     <string name="no_login">您还没有登录，选择</string>
 
     <string name="titile_jkzx">健康资讯</string>
+    <string name="title_more_hospital">更多医院</string>
 
     <string name="news_date_f">%s-%s-%s</string>
     <string name="hospital_distance">约%dm</string>

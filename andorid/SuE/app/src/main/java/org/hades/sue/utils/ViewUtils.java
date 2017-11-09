@@ -11,7 +11,6 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 
 import org.hades.sue.R;
-import org.hades.sue.activity.RegisterActivity;
 import org.hades.sue.bean.AdBean;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class ViewUtils {
 
 
 
-        public static class DefaultHolder implements Holder<AdBean> ,View.OnClickListener{
+        public static class DefaultHolder implements Holder<AdBean> {
             private ImageView mIvBanner = null;
 
             @Override
@@ -51,20 +50,9 @@ public class ViewUtils {
                 Glide.with(context)
                         .load(data.logo)
                         .into(mIvBanner);
-                mIvBanner.setTag(data);
-                mIvBanner.setOnClickListener(this);
+
             }
 
-            @Override
-            public void onClick(View v) {
-                AdBean adBean = (AdBean) v.getTag();
-                if (adBean.logo == R.drawable.banner_test_1){
-                    //注册
-                    RegisterActivity.startActivity(v.getContext());
-                }else{
-                    ToastUtils.showLong(v.getContext(),"点击Banner");
-                }
-            }
         }
     }
 }

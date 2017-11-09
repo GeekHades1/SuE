@@ -1,5 +1,6 @@
 package org.hades.sue.common;
 
+import org.hades.sue.bean.DoctorBean;
 import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.LoginBean;
 import org.hades.sue.bean.RData;
@@ -19,10 +20,20 @@ import retrofit2.http.POST;
 
 public interface SueService {
 
+    /**
+     * 检查手机
+     * @param phone
+     * @return
+     */
     @FormUrlEncoded
     @POST("usr/checkphone")
     Observable<RData<RespoBean>> checkPhone(@Field("phone") String phone);
 
+    /**
+     * 发送验证码
+     * @param phone
+     * @return
+     */
     @FormUrlEncoded
     @POST("usr/sendVcode")
     Observable<RData<RespoBean>> sendVerifiCode(@Field("phone") String phone);
@@ -71,4 +82,14 @@ public interface SueService {
     Observable<RData<List<HeathNews>>> getHeathNews(@Field("start") int start,
                                          @Field("count") int count);
 
+    /**
+     * 获取医生列表
+     * @param start
+     * @param count
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("common/doctorInfo")
+    Observable<RData<List<DoctorBean>>> getDoctorInfo(@Field("start") int start,
+                                                      @Field("count") int count);
 }
