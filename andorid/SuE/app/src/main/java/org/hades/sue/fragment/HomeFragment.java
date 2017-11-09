@@ -67,6 +67,9 @@ public class HomeFragment extends BaseFragment implements
     private GridView    gv_location;
     private GridLocationAdapter mGridAdapter;
 
+    //获取附近医院
+    private POIUtils poiUtils;
+
     @BindView(R.id.cb_index_banner)
     ConvenientBanner mCbBanner;
 
@@ -248,10 +251,9 @@ public class HomeFragment extends BaseFragment implements
     public void initData() {
 
         //获取附近医院
-        POIUtils poiUtils = new POIUtils(getContext(),this);
-        poiUtils.getPOI("医院",App.mShareP.getString(
-                Values.LAST_LOCATION,"江门市"
-        ),0,3);
+        poiUtils = new POIUtils(getContext(),this);
+        HospitalThread hospitalThread = new HospitalThread();
+        hospitalThread.start();
         //
 
         ViewUtils.setBanner(mCbBanner, new ViewUtils.DefaultBannerHolder(), getAdData());
@@ -271,7 +273,7 @@ public class HomeFragment extends BaseFragment implements
 
     private List<String> getLocationData() {
         List<String> data = new ArrayList<>();
-        data.add("江门");
+        data.add("江门市");
         return data;
     }
 
@@ -290,7 +292,6 @@ public class HomeFragment extends BaseFragment implements
         data.add(new AdBean(R.drawable.banner_test_0));
         data.add(new AdBean(R.drawable.banner_test_1));
         data.add(new AdBean(R.drawable.banner_test_2));
-        data.add(new AdBean(R.drawable.banner_test_3));
         return data;
     }
 
@@ -369,5 +370,17 @@ public class HomeFragment extends BaseFragment implements
         mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
                 , new HomeHospitalAdapterOption(), data);
         mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
+    }
+
+    final class HospitalThread extends Thread{
+        @Override
+        public void run() {
+            while(App.mShareP.getFloat(Values.LATITUDE,-1f) == -1f ){
+                //阻塞线程
+            }
+            poiUtils.getPOI("医院",App.mShareP.getString(
+                    Values.LAST_LOCATION,"江门市"
+            ),0,3);
+        }
     }
 }

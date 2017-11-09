@@ -312,5 +312,13 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //做清理工作
+        //删除之前的定位位置
+        App.mShareP.remove(Values.LATITUDE);
+        App.mShareP.remove(Values.LONGITUDE);
+    }
 }
 

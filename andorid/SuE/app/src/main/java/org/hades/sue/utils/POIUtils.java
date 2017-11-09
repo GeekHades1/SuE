@@ -55,8 +55,8 @@ public class POIUtils implements PoiSearch.OnPoiSearchListener{
         query.setPageNum(page);//设置查询页码
         poiSearch = new PoiSearch(context, query);
         poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(App.mShareP.
-                getFloat(Values.LATITUDE,22.58f),
-                App.mShareP.getFloat(Values.LONGITUDE,113.08f)), 10000));//设置周边搜索的中心点以及半径
+                getFloat(Values.LATITUDE,0),
+                App.mShareP.getFloat(Values.LONGITUDE,0)), 5000));//设置周边搜索的中心点以及半径
         poiSearch.setOnPoiSearchListener(this);
         poiSearch.searchPOIAsyn();
     }
