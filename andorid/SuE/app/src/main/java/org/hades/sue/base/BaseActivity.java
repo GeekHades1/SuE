@@ -52,9 +52,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 .titleBarMarginTop(getTitleBar())
                 .init();   //所有子类都将继承这些相同的属性
         mFManager = getSupportFragmentManager();
+        init();
         initViews();
         initData();
 
+    }
+
+    public void init() {
     }
 
     @Override

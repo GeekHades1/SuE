@@ -23,23 +23,46 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
+import static org.hades.sue.activity.SplashActivity.FINE_LOCATION;
 import static org.hades.sue.activity.SplashActivity.LOCATION_CODE;
+import static org.hades.sue.activity.SplashActivity.MOUNT_UNMOUNT_FILESYSTEMS;
 import static org.hades.sue.activity.SplashActivity.PHONE_CODE;
 import static org.hades.sue.activity.SplashActivity.STORAGE_CODE;
+import static org.hades.sue.activity.SplashActivity.WAKE_LOCK;
+import static org.hades.sue.activity.SplashActivity.WRITE_SETTINGS;
 
 @PermissionsRequestSync(
-        permission = {Manifest.permission.ACCESS_COARSE_LOCATION,
+        permission = {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE},
-        value = {LOCATION_CODE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_SETTINGS,
+                Manifest.permission.WAKE_LOCK,
+                Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+                },
+        value = {
+                FINE_LOCATION,
+                LOCATION_CODE,
                 STORAGE_CODE,
-                PHONE_CODE})
+                PHONE_CODE,
+                WRITE_SETTINGS,
+                WAKE_LOCK,
+                MOUNT_UNMOUNT_FILESYSTEMS,
+
+        })
 
 public class SplashActivity extends AppCompatActivity {
 
+    public static final int FINE_LOCATION = 0;
     public static final int LOCATION_CODE = 1;
     public static final int STORAGE_CODE = 2;
     public static final int PHONE_CODE = 3;
+    public static final int WRITE_SETTINGS = 4;
+    public static final int WAKE_LOCK = 5;
+    public static final int MOUNT_UNMOUNT_FILESYSTEMS = 6;
+
+
 
     private static final String TAG = SplashActivity.class.getSimpleName();
 
@@ -103,7 +126,9 @@ public class SplashActivity extends AppCompatActivity {
                 .requestSync();
     }
 
-    @PermissionsDenied({LOCATION_CODE, STORAGE_CODE, PHONE_CODE})
+    @PermissionsDenied({FINE_LOCATION, LOCATION_CODE,
+            STORAGE_CODE, PHONE_CODE,WAKE_LOCK,
+            WRITE_SETTINGS, MOUNT_UNMOUNT_FILESYSTEMS})
     public void denied(int code) {
         switch (code) {
             case LOCATION_CODE:

@@ -25,4 +25,7 @@
     <string name="news_date_f">%s-%s-%s</string>
     <string name="hospital_distance">约%dm</string>
 
+    <string name="login_hello">风里雨里，我们始终在这里等你！</string>
+    <string name="logout_string">愿您带上健康一起前行！</string>
+
 </resources>

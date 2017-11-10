@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -21,6 +22,7 @@ import org.hades.sue.fragment.LoginCheckPhoneFragment;
 import org.hades.sue.fragment.LoginCheckPswFragment;
 import org.hades.sue.presenter.ILoginPresenter;
 import org.hades.sue.presenter.impl.LoginPresenter;
+import org.hades.sue.utils.SnackUtils;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.Values;
 
@@ -41,6 +43,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
+
+    @BindView(R.id.fl_container)
+    FrameLayout container;
 
     private BaseFragment fragments[] = new BaseFragment[2];
 

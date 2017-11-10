@@ -1,5 +1,6 @@
 package org.hades.sue.activity;
 
+import android.app.ProgressDialog;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,8 @@ public class MoreNewsActivity extends BaseActivity {
     SimpleRecycleAdapter<HeathNews> mAdapter;
     RecycleViewOnClickHelper clickHelper;
 
+    ProgressDialog dialog ;
+
     int page = 0;
     int count = 10; // 每次读取条数
 
@@ -82,6 +85,7 @@ public class MoreNewsActivity extends BaseActivity {
                 return false;
             }
         });
+        xRefreshView.startRefresh();
     }
 
     private void initBar() {
@@ -167,6 +171,8 @@ public class MoreNewsActivity extends BaseActivity {
 
             @Override
             public void onLoadMore(boolean isSilence) {
+                dialog = ProgressDialog.show(MoreNewsActivity.this,
+                        "", "加载更多...");
                 App.mSueService.getHeathNews(page * count, count)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -178,6 +184,7 @@ public class MoreNewsActivity extends BaseActivity {
 
                             @Override
                             public void onNext(RData<List<HeathNews>> listRData) {
+                                dialog.dismiss();
                                 if(listRData.data.size() > 0){
                                     List<HeathNews> newList = mAdapter.getItemList();
                                     newList.addAll(listRData.data);
@@ -210,44 +217,9 @@ public class MoreNewsActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        getData();
+
     }
 
-    /**
-     * 向服务器获取数据
-     */
-    private void getData() {
-        App.mSueService.getHeathNews(page * count, count)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RData<List<HeathNews>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d(TAG,"onSubscribe 获取资讯数据");
-                    }
 
-                    @Override
-                    public void onNext(RData<List<HeathNews>> listRData) {
-                        mAdapter = new SimpleRecycleAdapter<HeathNews>(
-                                MoreNewsActivity.this,
-                                new MoreNewsAdapterOption(),
-                                listRData.data
-                        );
-                        mNewsContent.setAdapter(mAdapter);
-                        page++;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        ToastUtils.showShort(App.mContext,"资讯获取失败！");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
 }
