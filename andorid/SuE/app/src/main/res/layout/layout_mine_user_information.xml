@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/padding_10dp"
+    android:orientation="vertical"
     android:paddingTop="@dimen/padding_15dp">
+
+    <include layout="@layout/g_line_horizontal" />
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
@@ -36,22 +39,25 @@
                 android:paddingLeft="@dimen/padding_20dp"
                 android:text="@string/app_name"
                 android:textSize="20sp"
+                android:visibility="gone"
                 />
 
-
             <TextView
-                android:layout_width="200px"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/tv_layout_popular_module_btn"
                 android:padding="@dimen/padding_5dp"
-                android:text="登陆"
+                android:text="登陆\\注册"
                 android:id="@+id/tv_item_user_info_login"
                 />
+
+
+
         </com.zhy.autolayout.AutoLinearLayout>
 
-
-
-
     </com.zhy.autolayout.AutoLinearLayout>
+
+
+    <include layout="@layout/g_line_horizontal" />
 
 </com.zhy.autolayout.AutoLinearLayout>

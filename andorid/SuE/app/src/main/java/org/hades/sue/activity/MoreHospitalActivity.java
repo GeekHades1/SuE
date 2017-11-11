@@ -92,6 +92,7 @@ POIUtils.HospitalCallBack{
             @Override
             public void onClickLeftCtv() {
                 MoreHospitalActivity.this.finish();
+                overridePendingTransition(0,R.anim.out_scale);
             }
 
             @Override

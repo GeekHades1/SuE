@@ -2,67 +2,37 @@ package org.hades.sue.activity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
-import com.joker.annotation.PermissionsDenied;
-import com.joker.annotation.PermissionsRequestSync;
-import com.joker.api.Permissions4M;
 
 import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.utils.Values;
 import org.hades.sue.view.RotatePageView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
-
-import static org.hades.sue.activity.SplashActivity.FINE_LOCATION;
-import static org.hades.sue.activity.SplashActivity.LOCATION_CODE;
-import static org.hades.sue.activity.SplashActivity.MOUNT_UNMOUNT_FILESYSTEMS;
-import static org.hades.sue.activity.SplashActivity.PHONE_CODE;
-import static org.hades.sue.activity.SplashActivity.STORAGE_CODE;
-import static org.hades.sue.activity.SplashActivity.WAKE_LOCK;
-import static org.hades.sue.activity.SplashActivity.WRITE_SETTINGS;
-
-@PermissionsRequestSync(
-        permission = {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_SETTINGS,
-                Manifest.permission.WAKE_LOCK,
-                Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
-                },
-        value = {
-                FINE_LOCATION,
-                LOCATION_CODE,
-                STORAGE_CODE,
-                PHONE_CODE,
-                WRITE_SETTINGS,
-                WAKE_LOCK,
-                MOUNT_UNMOUNT_FILESYSTEMS,
-
-        })
-
-public class SplashActivity extends AppCompatActivity {
-
-    public static final int FINE_LOCATION = 0;
-    public static final int LOCATION_CODE = 1;
-    public static final int STORAGE_CODE = 2;
-    public static final int PHONE_CODE = 3;
-    public static final int WRITE_SETTINGS = 4;
-    public static final int WAKE_LOCK = 5;
-    public static final int MOUNT_UNMOUNT_FILESYSTEMS = 6;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
+public class SplashActivity extends AppCompatActivity implements
+        EasyPermissions.PermissionCallbacks{
+
+
+    private static final String[] PERMS = {Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_SETTINGS};
+    private static final int PERMS_CODE = 0x0001;
 
     private static final String TAG = SplashActivity.class.getSimpleName();
 
@@ -85,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        initPermission();
+        requiresPermission();
         if (App.mShareP.getBoolean(Values.isFirst,true)){
             setBannerListener();
             processLogic();
@@ -120,30 +90,6 @@ public class SplashActivity extends AppCompatActivity {
         mRlBg.setBackgroundResource(R.drawable.sue);
     }
 
-    private void initPermission() {
-        Permissions4M.get(this)
-                .requestForce(true)
-                .requestSync();
-    }
-
-    @PermissionsDenied({FINE_LOCATION, LOCATION_CODE,
-            STORAGE_CODE, PHONE_CODE,WAKE_LOCK,
-            WRITE_SETTINGS, MOUNT_UNMOUNT_FILESYSTEMS})
-    public void denied(int code) {
-        switch (code) {
-            case LOCATION_CODE:
-                Log.d(TAG, "位置权限获取失败");
-                break;
-            case STORAGE_CODE:
-                Log.d(TAG, "内存权限获取失败");
-                break;
-            case PHONE_CODE:
-                Log.d(TAG, "位置权限获取失败");
-                break;
-            default:
-                break;
-        }
-    }
 
     private void setBannerListener() {
         mBackgroundBanner.setEnterSkipViewIdAndDelegate(R.id.btn_guide_enter,0,
@@ -157,6 +103,17 @@ public class SplashActivity extends AppCompatActivity {
             });
     }
 
+    @AfterPermissionGranted(PERMS_CODE)
+    private void requiresPermission() {
+        if (EasyPermissions.hasPermissions(this, PERMS)) {
+            // Already have permission, do the thing
+            // ...
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.perms),
+                    PERMS_CODE, PERMS);
+        }
+    }
 
     private void enterHome(){
         HomeActivity.startActivity(this);
@@ -169,5 +126,22 @@ public class SplashActivity extends AppCompatActivity {
         mBackgroundBanner.setData(R.drawable.guide1,
                 R.drawable.guide2,
                 R.drawable.guide3);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //添加权限回调
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        //获取权限
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        //拒绝权限
     }
 }

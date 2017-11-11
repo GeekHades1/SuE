@@ -69,8 +69,10 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
     implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
-    compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
-    annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'
+    //权限申请
+    compile 'com.github.jokermonn:permissions4m:2.1.2-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
+    compile 'pub.devrel:easypermissions:1.0.1'
     compile project(path: ':slidingmenu')
     compile 'org.greenrobot:eventbus:3.0.0'
     //RxJava & RxAndroid
@@ -91,4 +93,6 @@ dependencies {
     compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
     //圆形头像
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    //流式选择布局
+    compile 'com.hyman:flowlayout-lib:1.1.2'
 }

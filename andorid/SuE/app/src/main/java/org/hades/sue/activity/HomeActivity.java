@@ -293,7 +293,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         Intent intent = new Intent();
         intent.setClass(this, QRScannerActivity.class);
         startActivity(intent);
-        addTranslateXYAnim();
+        //addScaleEnter();
     }
 
     /**
@@ -316,6 +316,11 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private void addTranslateXYAnim(){
         overridePendingTransition(R.anim.enter_x_y, R.anim.out_x_y);
     }
+
+    private void addScaleEnter(){
+        overridePendingTransition(R.anim.enter_scale,0);
+    }
+
 
     @Override
     protected void onStart() {

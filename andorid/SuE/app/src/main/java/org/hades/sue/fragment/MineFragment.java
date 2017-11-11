@@ -81,9 +81,8 @@ public class MineFragment extends BaseFragment
     }
 
     private void noLoginView() {
-        mHeadIcon.setVisibility(View.GONE);
         mUserOpBlock.setVisibility(View.GONE);
-        mUserName.setText(R.string.no_login);
+        mUserName.setVisibility(View.GONE);
         mLoginBtn.setVisibility(View.VISIBLE);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +109,7 @@ public class MineFragment extends BaseFragment
                     @Override
                     public void onNext(RData<UserBean> data) {
                         mUserOpBlock.setVisibility(View.VISIBLE);
+                        mUserName.setVisibility(View.VISIBLE);
                         mUserName.setText(data.data.nickname);
                         mLoginBtn.setVisibility(View.GONE);
                         initMine();

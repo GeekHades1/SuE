@@ -116,6 +116,7 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> {
 
     private void closeThis() {
         this.finish();
+        overridePendingTransition(0,R.anim.out_scale);
     }
 
     @Override

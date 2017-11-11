@@ -22,7 +22,6 @@ import org.hades.sue.fragment.LoginCheckPhoneFragment;
 import org.hades.sue.fragment.LoginCheckPswFragment;
 import org.hades.sue.presenter.ILoginPresenter;
 import org.hades.sue.presenter.impl.LoginPresenter;
-import org.hades.sue.utils.SnackUtils;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.Values;
 
@@ -151,6 +150,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
             App.mShareP.setString(Values.loginPhone,mPostMsg.username);
         }
         this.finish();
+        overridePendingTransition(0,R.anim.out_scale);
     }
 
 

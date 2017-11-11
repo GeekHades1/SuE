@@ -22,9 +22,9 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/padding_5dp">
 
-            <include layout="@layout/g_line_horizontal" />
             <include
                 android:id="@+id/layou_mine_user_information"
                 layout="@layout/layout_mine_user_information"

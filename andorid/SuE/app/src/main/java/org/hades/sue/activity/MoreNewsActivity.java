@@ -94,6 +94,7 @@ public class MoreNewsActivity extends BaseActivity {
             @Override
             public void onClickLeftCtv() {
                 MoreNewsActivity.this.finish();
+                overridePendingTransition(0,R.anim.out_scale);
             }
 
             @Override
