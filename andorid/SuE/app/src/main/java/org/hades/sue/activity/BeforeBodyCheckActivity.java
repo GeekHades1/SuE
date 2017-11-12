@@ -209,10 +209,10 @@ public class BeforeBodyCheckActivity extends BaseActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        super.onStart();
     }
 
     /**
@@ -242,10 +242,10 @@ public class BeforeBodyCheckActivity extends BaseActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+        super.onStop();
     }
 
 
