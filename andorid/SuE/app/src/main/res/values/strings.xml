@@ -17,12 +17,14 @@
     <string name="tips_verifi_code">请先填写手机号码</string>
     <string name="after_send_verifi_code">请%d(s)后再点击</string>
 
-    <string name="no_login">您还没有登录，选择</string>
-
     <string name="titile_jkzx">健康资讯</string>
     <string name="title_more_hospital">更多医院</string>
 
     <string name="news_date_f">%s-%s-%s</string>
     <string name="hospital_distance">约%dm</string>
 
+    <string name="login_hello">风里雨里，我们始终在这里等你！</string>
+    <string name="logout_string">愿您带上健康一起前行！</string>
+
+    <string name="perms">接下来我们需要您允许应用使用一些权限！</string>
 </resources>

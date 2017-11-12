@@ -2,7 +2,6 @@ package org.hades.sue.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,11 +13,13 @@ import org.hades.sue.base.BaseFragment;
 import org.hades.sue.bean.RData;
 import org.hades.sue.bean.UserBean;
 import org.hades.sue.helper.LayoutMineModuleHelper;
+import org.hades.sue.utils.SnackUtils;
 import org.hades.sue.utils.ToastUtils;
 import org.hades.sue.utils.Values;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -28,7 +29,8 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Hades on 2017/9/21.
  */
 
-public class MineFragment extends BaseFragment implements LayoutMineModuleHelper.OnMineClickListener {
+public class MineFragment extends BaseFragment
+        implements LayoutMineModuleHelper.OnMineClickListener {
 
     private static final String TAG = MineFragment.class.getSimpleName();
 
@@ -47,12 +49,14 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
     @BindView(R.id.ll_item_user_op_block)
     View mUserOpBlock;
     @BindView(R.id.iv_item_user_info_head_icon)
-    View mHeadIcon;
+    CircleImageView mHeadIcon;
     @BindView(R.id.tv_item_user_info_login)
     View mLoginBtn;
     @BindView(R.id.tv_item_user_info_name)
     TextView mUserName;
 
+
+    boolean isClick2Login = false;
 
     private LayoutMineModuleHelper mMineDoctorHelper;
     private LayoutMineModuleHelper mMineMedicalRecorHelper;
@@ -78,19 +82,21 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
 
     private void noLoginView() {
         mUserOpBlock.setVisibility(View.GONE);
-        mUserName.setText(R.string.no_login);
+        mUserName.setVisibility(View.GONE);
         mLoginBtn.setVisibility(View.VISIBLE);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginActivity.startActivity(mHomeActivity);
+                //点击了登陆按钮登陆
+                isClick2Login = true;
             }
         });
     }
 
     private void loginView() {
         String phone = App.mShareP.getString(Values.loginPhone, "");
-        Log.d(TAG, "post phone = " + phone);
+        mHeadIcon.setVisibility(View.VISIBLE);
         App.mSueService.getUserInfo(phone)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,8 +108,8 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
 
                     @Override
                     public void onNext(RData<UserBean> data) {
-                        Log.d(TAG, "nickname = " + data.data.nickname);
                         mUserOpBlock.setVisibility(View.VISIBLE);
+                        mUserName.setVisibility(View.VISIBLE);
                         mUserName.setText(data.data.nickname);
                         mLoginBtn.setVisibility(View.GONE);
                         initMine();
@@ -125,19 +131,23 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
         //挂号预约管理
         mMineDoctorHelper = new LayoutMineModuleHelper(mViewDoctor);
         mMineDoctorHelper.setTitle("挂号预约管理");
+        mMineDoctorHelper.setIcon(R.drawable.item_mine_register_manager);
         mMineDoctorHelper.setOnLinClickListener(this);
 
         //病历管理
         mMineMedicalRecorHelper = new LayoutMineModuleHelper(mViewMedicalRecord);
+        mMineMedicalRecorHelper.setIcon(R.drawable.item_mine_table_manager);
         mMineMedicalRecorHelper.setTitle("病历管理");
         mMineMedicalRecorHelper.setOnLinClickListener(this);
 
         //设置
         mMineSettingHelper = new LayoutMineModuleHelper(mViewSetting);
+        mMineSettingHelper.setIcon(R.drawable.item_mine_setting);
         mMineSettingHelper.setTitle("设置");
         mMineSettingHelper.setOnLinClickListener(this);
 
         mMineLogoutHelper = new LayoutMineModuleHelper(mViewLogout);
+        mMineLogoutHelper.setIcon(R.drawable.item_mine_logout);
         mMineLogoutHelper.setTitle("退出");
         mMineLogoutHelper.setOnLinClickListener(this);
     }
@@ -179,6 +189,7 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
      * 退出登录操作
      */
     private void logout() {
+        SnackUtils.showSnack(mUserOpBlock,getContext().getString(R.string.logout_string));
         App.mShareP.setBoolean(Values.isLogin, false);
         App.mShareP.remove(Values.loginPhone);
         App.mShareP.remove(Values.LAST_LOGIN_TIME);
@@ -208,6 +219,12 @@ public class MineFragment extends BaseFragment implements LayoutMineModuleHelper
     public void onResume() {
         super.onResume();
         if (App.mShareP.getBoolean(Values.isLogin, false)) {
+            if (isClick2Login){
+                //如果检测状态是登陆并且点击过登陆按钮
+                isClick2Login =  false; //重置
+                //打出欢迎语
+                SnackUtils.showSnack(mUserOpBlock,getString(R.string.login_hello));
+            }
             loginView();
         } else {
             noLoginView();

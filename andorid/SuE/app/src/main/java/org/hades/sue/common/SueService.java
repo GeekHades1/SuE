@@ -1,5 +1,6 @@
 package org.hades.sue.common;
 
+import org.hades.sue.bean.BodyCheck;
 import org.hades.sue.bean.DoctorBean;
 import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.LoginBean;
@@ -12,6 +13,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -92,4 +94,11 @@ public interface SueService {
     @POST("common/doctorInfo")
     Observable<RData<List<DoctorBean>>> getDoctorInfo(@Field("start") int start,
                                                       @Field("count") int count);
+
+    /**
+     * 获取症状列表
+     * @return
+     */
+    @GET("check/bodylist")
+    Observable<RData<List<BodyCheck>>> getBodyList();
 }

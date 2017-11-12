@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,6 +42,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     @BindView(R.id.my_title_bar_back)
     BGATitleBar mTitleBar;
+
+    @BindView(R.id.fl_container)
+    FrameLayout container;
 
     private BaseFragment fragments[] = new BaseFragment[2];
 
@@ -146,6 +150,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
             App.mShareP.setString(Values.loginPhone,mPostMsg.username);
         }
         this.finish();
+        overridePendingTransition(0,R.anim.out_scale);
     }
 
 

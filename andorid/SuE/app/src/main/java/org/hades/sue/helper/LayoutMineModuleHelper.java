@@ -1,6 +1,6 @@
 package org.hades.sue.helper;
 
-import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,8 +37,9 @@ public class LayoutMineModuleHelper implements View.OnClickListener {
         ButterKnife.bind(this, contentView);
     }
 
-    public void setIcon(Drawable drawable) {
-        Glide.with(App.mContext).load(drawable).into(mMineIcon);
+
+    public void setIcon(@DrawableRes int res) {
+        Glide.with(App.mContext).load(res).into(mMineIcon);
     }
 
     public void setTitle(String title) {

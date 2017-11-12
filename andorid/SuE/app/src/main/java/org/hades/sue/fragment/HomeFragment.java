@@ -439,9 +439,14 @@ public class HomeFragment extends BaseFragment implements
             while(App.mShareP.getFloat(Values.LATITUDE,-1f) == -1f ){
                 //阻塞线程
             }
-            poiUtils.getPOI("医院",App.mShareP.getString(
-                    Values.LAST_LOCATION,"江门市"
-            ),0,3);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    poiUtils.getPOI("医院",App.mShareP.getString(
+                            Values.LAST_LOCATION,"江门市"
+                    ),0,3);
+                }
+            }, 150);
         }
     }
 

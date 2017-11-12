@@ -94,7 +94,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
                             MonthBodyCheckActivity.startActivity(mHomeActivity);
                         }
                     }
-            ,800);
+            ,200);
         } else if (view.getId() == R.id.item_bodycheck_before_sym) {
             myHandler.postDelayed(
                     new Runnable() {
@@ -103,7 +103,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
                             BeforeBodyCheckActivity.startActivity(mHomeActivity);
                         }
                     }
-                    ,800);
+                    ,200);
         }
     }
 

@@ -39,6 +39,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
     private BaseFragment fragments[] = new BaseFragment[3];
 
+
     private HomeFragment mHomeFragment = null;
     private BodyCheckFragment mBodyCheckFragment = null;
     private MineFragment mMineFragment = null;
@@ -80,6 +81,10 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         return mTitleBar;
     }
 
+    @Override
+    public void init() {
+        super.init();
+    }
 
     @Override
     public void initViews() {
@@ -288,7 +293,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         Intent intent = new Intent();
         intent.setClass(this, QRScannerActivity.class);
         startActivity(intent);
-        addTranslateXYAnim();
+        //addScaleEnter();
     }
 
     /**
@@ -312,6 +317,11 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         overridePendingTransition(R.anim.enter_x_y, R.anim.out_x_y);
     }
 
+    private void addScaleEnter(){
+        overridePendingTransition(R.anim.enter_scale,0);
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -329,6 +339,17 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void destroy() {
         //做清理工作
         //删除之前的定位位置
@@ -337,5 +358,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         Log.d(TAG, "onDestroy");
         super.destroy();
     }
+
+
 }
 

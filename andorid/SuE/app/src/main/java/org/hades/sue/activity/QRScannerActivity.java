@@ -58,6 +58,7 @@ public class QRScannerActivity extends BaseActivity implements QRCodeView.Delega
             @Override
             public void onClickLeftCtv() {
                 QRScannerActivity.this.finish();
+                addScaleOut();
             }
 
             @Override
@@ -101,6 +102,7 @@ public class QRScannerActivity extends BaseActivity implements QRCodeView.Delega
     public void denied(){
         //获取权限失败
         this.finish();
+        addScaleOut();
     }
 
     @Override
@@ -120,8 +122,8 @@ public class QRScannerActivity extends BaseActivity implements QRCodeView.Delega
      */
     private void requestCodeQRCodePermissions() {
         Permissions4M.get(this)
-                .requestPermission(Manifest.permission.CAMERA)
-                .requestCode(CAMERA_CODE)
+                .requestPermissions(Manifest.permission.CAMERA)
+                .requestCodes(CAMERA_CODE)
                 .request();
     }
 
@@ -156,7 +158,15 @@ public class QRScannerActivity extends BaseActivity implements QRCodeView.Delega
      */
     private void doResult(String url) {
         WebActivity.startActivity(this, url);
-        overridePendingTransition(R.anim.enter,R.anim.out);
         this.finish();
+        addScaleEnter();
+    }
+
+    private void addScaleEnter(){
+        overridePendingTransition(R.anim.enter_scale,0);
+    }
+
+    private void addScaleOut(){
+        overridePendingTransition(0,R.anim.out_scale);
     }
 }
