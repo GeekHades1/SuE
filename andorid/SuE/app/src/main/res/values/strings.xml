@@ -27,4 +27,7 @@
     <string name="logout_string">愿您带上健康一起前行！</string>
 
     <string name="perms">接下来我们需要您允许应用使用一些权限！</string>
+    <string name="login_btn_text">登录\\注册</string>
+
+    <string name="smart_check">智能确诊</string>
 </resources>

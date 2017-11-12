@@ -47,7 +47,7 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
 
     private void initBeforeSymCheck() {
         mBeforeSym.setTag("before");
-        mBeforeSym.setMainText("病状确诊");
+        mBeforeSym.setMainText(getString(R.string.smart_check));
         mBeforeSym.setLeftIcon(R.drawable.before_bodycheck);
         mBeforeSym.setDetailsText("帮助您快速确定自己的病情，有目的的推荐您药物以及相关医生");
         mBeforeSym.setOnClickListener(this);

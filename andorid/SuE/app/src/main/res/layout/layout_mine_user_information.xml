@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 style="@style/tv_layout_popular_module_btn"
                 android:padding="@dimen/padding_5dp"
-                android:text="登陆\\注册"
+                android:text="@string/login_btn_text"
                 android:id="@+id/tv_item_user_info_login"
                 />
 

@@ -171,7 +171,7 @@ public class BeforeBodyCheckActivity extends BaseActivity {
     }
 
     private void initBar() {
-        mTitleBar.setTitleText("病前确诊");
+        mTitleBar.setTitleText(getString(R.string.smart_check));
         mTitleBar.setDelegate(new BGATitleBar.Delegate() {
             @Override
             public void onClickLeftCtv() {

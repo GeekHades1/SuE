@@ -1,6 +1,5 @@
 package org.hades.sue.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -70,7 +69,6 @@ public class MineFragment extends BaseFragment
         return R.layout.fragment_mine;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void initViews() {
         mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
@@ -162,7 +160,7 @@ public class MineFragment extends BaseFragment
     }
 
     private void initBar() {
-        mTitleBar.setTitleText("我的");
+        mTitleBar.setTitleText("");
         mTitleBar.getLeftCtv().setVisibility(View.GONE);
         mTitleBar.getRightCtv().setVisibility(View.GONE);
     }
@@ -192,7 +190,6 @@ public class MineFragment extends BaseFragment
     /**
      * 退出登录操作
      */
-    @SuppressLint("NewApi")
     private void logout() {
         SnackUtils.showSnack(mUserOpBlock,getContext().getString(R.string.logout_string));
         App.mShareP.setBoolean(Values.isLogin, false);
