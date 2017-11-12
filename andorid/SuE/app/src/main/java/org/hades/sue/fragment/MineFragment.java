@@ -1,5 +1,6 @@
 package org.hades.sue.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -69,6 +70,7 @@ public class MineFragment extends BaseFragment
         return R.layout.fragment_mine;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void initViews() {
         mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
@@ -84,6 +86,7 @@ public class MineFragment extends BaseFragment
         mUserOpBlock.setVisibility(View.GONE);
         mUserName.setVisibility(View.GONE);
         mLoginBtn.setVisibility(View.VISIBLE);
+        mHeadIcon.setImageResource(R.drawable.no_login_icon);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +111,7 @@ public class MineFragment extends BaseFragment
 
                     @Override
                     public void onNext(RData<UserBean> data) {
+                        mHeadIcon.setImageResource(R.drawable.login_defualt_icon);
                         mUserOpBlock.setVisibility(View.VISIBLE);
                         mUserName.setVisibility(View.VISIBLE);
                         mUserName.setText(data.data.nickname);
@@ -188,6 +192,7 @@ public class MineFragment extends BaseFragment
     /**
      * 退出登录操作
      */
+    @SuppressLint("NewApi")
     private void logout() {
         SnackUtils.showSnack(mUserOpBlock,getContext().getString(R.string.logout_string));
         App.mShareP.setBoolean(Values.isLogin, false);
