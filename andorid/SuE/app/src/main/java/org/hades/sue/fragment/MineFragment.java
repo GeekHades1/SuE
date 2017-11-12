@@ -84,6 +84,7 @@ public class MineFragment extends BaseFragment
         mUserOpBlock.setVisibility(View.GONE);
         mUserName.setVisibility(View.GONE);
         mLoginBtn.setVisibility(View.VISIBLE);
+        mHeadIcon.setImageResource(R.drawable.no_login_icon);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +109,7 @@ public class MineFragment extends BaseFragment
 
                     @Override
                     public void onNext(RData<UserBean> data) {
+                        mHeadIcon.setImageResource(R.drawable.login_defualt_icon);
                         mUserOpBlock.setVisibility(View.VISIBLE);
                         mUserName.setVisibility(View.VISIBLE);
                         mUserName.setText(data.data.nickname);
@@ -158,7 +160,7 @@ public class MineFragment extends BaseFragment
     }
 
     private void initBar() {
-        mTitleBar.setTitleText("我的");
+        mTitleBar.setTitleText("");
         mTitleBar.getLeftCtv().setVisibility(View.GONE);
         mTitleBar.getRightCtv().setVisibility(View.GONE);
     }

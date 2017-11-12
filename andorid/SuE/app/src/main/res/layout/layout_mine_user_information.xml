@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/padding_10dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_15dp"
     android:orientation="vertical"
-    android:paddingTop="@dimen/padding_15dp">
+    >
 
-    <include layout="@layout/g_line_horizontal" />
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="300px"
-        android:background="@color/colorWhite"
+        android:background="@drawable/user_info_bg"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -21,9 +20,10 @@
             android:layout_height="72dp"
             android:id="@+id/iv_item_user_info_head_icon"
             android:layout_marginLeft="@dimen/padding_5dp"
-            android:src="@drawable/user_default_icon"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
+            android:src="@drawable/no_login_icon"
+            app:civ_border_width="@dimen/padding_1dp"
+            app:civ_border_color="@color/colorWhite"
+            />
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 style="@style/tv_layout_popular_module_btn"
                 android:padding="@dimen/padding_5dp"
-                android:text="登陆\\注册"
+                android:text="@string/login_btn_text"
                 android:id="@+id/tv_item_user_info_login"
                 />
 
@@ -58,6 +58,5 @@
     </com.zhy.autolayout.AutoLinearLayout>
 
 
-    <include layout="@layout/g_line_horizontal" />
 
 </com.zhy.autolayout.AutoLinearLayout>

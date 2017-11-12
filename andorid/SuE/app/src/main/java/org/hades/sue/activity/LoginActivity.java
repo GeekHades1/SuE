@@ -147,10 +147,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
             //设置7天过期
             App.mShareP.setLong(Values.LAST_LOGIN_TIME, curTime);
             Log.d(TAG, "login phone = " + mPostMsg.username);
-            App.mShareP.setString(Values.loginPhone,mPostMsg.username);
+            App.mShareP.setString(Values.loginPhone, mPostMsg.username);
         }
         this.finish();
-        overridePendingTransition(0,R.anim.out_scale);
+        overridePendingTransition(0, R.anim.out_scale);
     }
 
 
@@ -247,52 +247,51 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     }
 
     private void doNextStep(UserMsg msg) {
+        mPrePage = mCurPage;
+        mCurPage = msg.state;
+        mPostMsg.username = msg.username;
+        changeFragment();
+    }
+
+    private void isHasUser(final UserMsg msg) {
         if (mPresenter.checkPhone(msg.username)) {
-            mPrePage = mCurPage;
-            mCurPage = msg.state;
-            mPostMsg.username = msg.username;
-            changeFragment();
+            App.mSueService.checkPhone(msg.username)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<RData<RespoBean>>() {
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(RData<RespoBean> data) {
+                            if (!data.data.state) {
+                                ToastUtils.showShort(App.mContext,
+                                        "该手机号码尚未注册！");
+                            } else {
+                                doNextStep(msg);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         } else {
             ToastUtils.showShort(this, "输入手机号有误");
         }
     }
 
-    private void isHasUser(final UserMsg msg) {
-        App.mSueService.checkPhone(msg.username)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<RData<RespoBean>>() {
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(RData<RespoBean> data) {
-                        if (!data.data.state){
-                            //已被注册
-                            ToastUtils.showShort(App.mContext,
-                                    "该手机号码尚未注册！");
-                        }else {
-                            doNextStep(msg);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
     private void doLogin() {
-        App.mSueService.login(mPostMsg.username,mPostMsg.passwordMD5)
+        App.mSueService.login(mPostMsg.username, mPostMsg.passwordMD5)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<RData<LoginBean>>() {
@@ -303,11 +302,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
                     @Override
                     public void onNext(RData<LoginBean> data) {
-                        if (data.data.login){
+                        if (data.data.login) {
                             //成功登陆
                             isLogin = true;
                             loginSuccessAndFinish();
-                        }else {
+                        } else {
                             //登陆失败
                             ToastUtils.showShort(App.mContext,
                                     "密码错误！");

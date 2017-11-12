@@ -35,6 +35,7 @@
                 android:padding="@dimen/padding_2dp"
                 android:textSize="@dimen/textSize_14"
                 android:textStyle="bold"
+                android:textColor="@color/colorBlack"
                 tools:text="@string/titile_jkzx"
                 />
 
