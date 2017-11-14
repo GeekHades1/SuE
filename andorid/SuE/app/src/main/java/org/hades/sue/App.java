@@ -3,10 +3,13 @@ package org.hades.sue;
 import android.app.Application;
 import android.content.Context;
 
+import com.amap.api.maps2d.MapsInitializer;
+
 import org.hades.sue.common.SueService;
 import org.hades.sue.utils.SpUtils;
 import org.hades.sue.utils.Values;
 
+import cn.jpush.android.api.JPushInterface;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +37,9 @@ public class App extends Application {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         mSueService = retrofit.create(SueService.class);
+        MapsInitializer.setApiKey("12555006a348f112e3e1561880ad8b12");
+        JPushInterface.init(this);
+        JPushInterface.setDebugMode(true);
     }
 
 

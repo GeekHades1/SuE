@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
@@ -13,12 +20,17 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <include
                 android:id="@+id/layou_mine_user_information"
                 layout="@layout/layout_mine_user_information"
                 />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_30dp"/>
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
@@ -42,9 +54,12 @@
                 <include
                     android:id="@+id/layout_mine_setting"
                     layout="@layout/layout_mine_module" />
+
+                <include layout="@layout/g_line_horizontal" />
                 <include
                     android:id="@+id/layout_mine_logout"
                     layout="@layout/layout_mine_module" />
+                <include layout="@layout/g_line_horizontal" />
             </com.zhy.autolayout.AutoLinearLayout>
 
 
@@ -54,3 +69,4 @@
     </ScrollView>
 
 </com.zhy.autolayout.AutoLinearLayout>
+</android.support.design.widget.CoordinatorLayout>

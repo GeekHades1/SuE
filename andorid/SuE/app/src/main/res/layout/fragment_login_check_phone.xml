@@ -31,36 +31,33 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@id/login_btn"
-        style="@style/tv_layout_popular_module_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_20dp"
-        android:padding="@dimen/padding_15dp"
-        android:text="@string/next_step"
-        android:textSize="17sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_20dp">
+        android:layout_marginTop="@dimen/padding_10dp">
 
-        <!--<TextView-->
-        <!--android:id="@+id/forget_password_login"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/login_forget_possword"-->
-        <!--android:textSize="13sp" />-->
+        <TextView
+            android:id="@id/login_btn"
+            style="@style/tv_layout_popular_module_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_20dp"
+            android:padding="@dimen/padding_15dp"
+            android:text="@string/next_step"
+            android:textSize="17sp" />
+
 
         <TextView
             android:id="@id/tv_register"
+            android:layout_marginTop="@dimen/padding_15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/login_btn"
+            android:layout_alignRight="@id/login_btn"
             android:text="@string/login_register"
             android:textColor="@color/colorPrimary"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

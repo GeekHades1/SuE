@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <cn.bingoogolapple.titlebar.BGATitleBar
+            android:id="@id/my_title_bar_back"
+            style="@style/TitleBar"
+            app:bgatitlebar_leftDrawable="@drawable/de_title_back"
+            app:bgatitlebar_titleText="登陆" />
+
+        <com.andview.refreshview.XRefreshView
+            android:id="@+id/xref_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@drawable/scroll_bar_thump"
+                android:scrollbars="vertical"
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </com.andview.refreshview.XRefreshView>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -66,6 +66,7 @@ public class MonthBodyCheckActivity extends BaseActivity {
 
     private void back() {
         this.finish();
+        overridePendingTransition(0,R.anim.out_scale);
     }
 
     @Override

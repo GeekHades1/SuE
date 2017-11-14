@@ -14,7 +14,7 @@
         android:layout_marginTop="-500dp"
         android:layout_centerHorizontal="true"
         app:rpv_background="@drawable/sue_top"
-        app:rpv_duration="1500"
+        app:rpv_duration="900"
         android:visibility="gone"
         />
 

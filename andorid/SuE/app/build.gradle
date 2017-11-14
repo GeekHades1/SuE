@@ -11,9 +11,20 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "org.hades.sue"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "09fde038191e05095cc52f72", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
         minSdkVersion 18
         multiDexEnabled true
         targetSdkVersion 26
@@ -55,11 +66,13 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.taro:headerrecycle:2.6.0'
     //图片库
-    compile 'com.github.bumptech.glide:glide:4.1.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
     implementation files('libs/TencentLocationSDK_v6.1.2_r1df4baaa_170627_1056.jar')
-    compile 'com.github.jokermonn:permissions4m:2.0.0-lib'
-    annotationProcessor 'com.github.jokermonn:permissions4m:2.0.0-processor'
+    //权限申请
+    compile 'com.github.jokermonn:permissions4m:2.1.2-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
+    compile 'pub.devrel:easypermissions:1.0.1'
     compile project(path: ':slidingmenu')
     compile 'org.greenrobot:eventbus:3.0.0'
     //RxJava & RxAndroid
@@ -75,5 +88,11 @@ dependencies {
     compile 'com.google.zxing:core:3.3.0'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.9@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
-
+    implementation files('libs/AMap2DMap_5.2.0_AMapSearch_5.3.1_20170817.jar')
+    compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
+    compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
+    //圆形头像
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    //流式选择布局
+    compile 'com.hyman:flowlayout-lib:1.1.2'
 }

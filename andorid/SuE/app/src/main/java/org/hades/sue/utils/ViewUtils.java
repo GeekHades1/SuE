@@ -27,11 +27,13 @@ public class ViewUtils {
         banner.setPages(creator, data);
     }
 
-    public static class DefaultBannerHolder implements CBViewHolderCreator<Holder<AdBean>> {
+    public static class DefaultBannerHolder implements CBViewHolderCreator<Holder<AdBean>>{
         @Override
         public Holder<AdBean> createHolder() {
             return new DefaultHolder();
         }
+
+
 
         public static class DefaultHolder implements Holder<AdBean> {
             private ImageView mIvBanner = null;
@@ -48,7 +50,9 @@ public class ViewUtils {
                 Glide.with(context)
                         .load(data.logo)
                         .into(mIvBanner);
+
             }
+
         }
     }
 }

@@ -52,9 +52,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 .titleBarMarginTop(getTitleBar())
                 .init();   //所有子类都将继承这些相同的属性
         mFManager = getSupportFragmentManager();
+        init();
         initViews();
         initData();
 
+    }
+
+    public void init() {
     }
 
     @Override
@@ -67,6 +71,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         if (mImmersionBar != null){
             mImmersionBar.destroy();
         }
+        destroy();
         super.onDestroy();
+    }
+
+    /**
+     * 防止冲突的销毁函数
+     */
+    public void destroy(){
     }
 }

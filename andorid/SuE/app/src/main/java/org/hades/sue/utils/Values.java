@@ -37,4 +37,19 @@ public class Values {
      * 一周里的秒时间
      */
     public static final int WEEK_TIME = 7 * 24 * 60 * 60;
+
+    /**
+     *  上一次登陆的位置
+     */
+    public static final String LAST_LOCATION = "last_location";
+
+    /**
+     * 经度
+     */
+    public static final String LATITUDE = "latitude";
+
+    /**
+     * 纬度
+     */
+    public static final String LONGITUDE = "longitude";
 }

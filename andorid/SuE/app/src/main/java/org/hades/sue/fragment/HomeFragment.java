@@ -4,12 +4,10 @@ import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.andview.refreshview.XRefreshView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.taro.headerrecycle.adapter.SimpleRecycleAdapter;
 import com.taro.headerrecycle.helper.RecycleViewOnClickHelper;
 
@@ -17,6 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.activity.HomeActivity;
+import org.hades.sue.activity.RegisterActivity;
 import org.hades.sue.activity.WebActivity;
 import org.hades.sue.adapter.GridLocationAdapter;
 import org.hades.sue.adapter.HomeDoctorAdapterOption;
@@ -29,7 +28,10 @@ import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.HospitalBean;
 import org.hades.sue.bean.RData;
 import org.hades.sue.helper.LayoutPopularModuleHelper;
+import org.hades.sue.utils.POIUtils;
+import org.hades.sue.utils.SnackUtils;
 import org.hades.sue.utils.ToastUtils;
+import org.hades.sue.utils.Values;
 import org.hades.sue.utils.ViewUtils;
 import org.hades.sue.view.PopularTitleView;
 import org.hades.sue.view.SmileyHeaderView;
@@ -49,7 +51,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class HomeFragment extends BaseFragment implements
-        PopularTitleView.OnTitleMoreClickListener,AdapterView.OnItemClickListener {
+        PopularTitleView.OnTitleMoreClickListener
+,POIUtils.HospitalCallBack,OnItemClickListener{
 
     private static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -57,11 +60,17 @@ public class HomeFragment extends BaseFragment implements
     XRefreshView xRefreshView;
 
 
-    private BGATitleBar mTitleBar;
-    private SlidingMenu mSlidingMenu;
+    boolean dataLoad = false; //文章是否加载完成
+    boolean isRefresh = false; //正在加载
 
-    private GridView    gv_location;
+    private BGATitleBar mTitleBar;
+//    private SlidingMenu mSlidingMenu;
+//
+//    private GridView    gv_location;
     private GridLocationAdapter mGridAdapter;
+
+    //获取附近医院
+    private POIUtils poiUtils;
 
     @BindView(R.id.cb_index_banner)
     ConvenientBanner mCbBanner;
@@ -81,6 +90,8 @@ public class HomeFragment extends BaseFragment implements
     private SimpleRecycleAdapter mHospitalAdapter;
     private SimpleRecycleAdapter mEssayAdapter;
 
+    private Handler mHandler = new Handler();
+
 
     @Override
     public int getLayoutId() {
@@ -91,14 +102,14 @@ public class HomeFragment extends BaseFragment implements
     public void initViews() {
         mTitleBar = (BGATitleBar) mHomeActivity.getTitleBar();
         initBar();
-        initSlidingMenu();
+        //initSlidingMenu();
         initRefView();
         initPopular();
 
         mTitleBar.setDelegate(new BGATitleBar.Delegate() {
             @Override
             public void onClickLeftCtv() {
-                mSlidingMenu.toggle();
+//                mSlidingMenu.toggle();
             }
 
             @Override
@@ -154,8 +165,13 @@ public class HomeFragment extends BaseFragment implements
         hospitalClickHelper.attachToRecycleView(mPopularHospitalHelper.mRvContent);
         hospitalClickHelper.setOnItemClickListener(new RecycleViewOnClickHelper.OnItemClickListener() {
             @Override
-            public boolean onItemClick(View view, int position, RecyclerView.ViewHolder holder) {
-                ToastUtils.showShort(mHomeActivity, "预约 h");
+            public boolean onItemClick(View view, int position,
+                                       RecyclerView.ViewHolder holder) {
+                HospitalBean bean = (HospitalBean)
+                        mHospitalAdapter.getItem(position);
+                if (bean != null) {
+                    //TODO:点击医院详情
+                }
                 return false;
             }
         });
@@ -184,21 +200,21 @@ public class HomeFragment extends BaseFragment implements
      * 初始化侧滑栏
      */
     private void initSlidingMenu() {
-        mSlidingMenu = new SlidingMenu(mHomeActivity);
-        mSlidingMenu.setMode(SlidingMenu.LEFT);
-        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-        mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width);
-        mSlidingMenu.setShadowDrawable(R.drawable.shadow);
-        mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        mSlidingMenu.setFadeDegree(0.35f);
-
-        mSlidingMenu.attachToActivity(mHomeActivity,
-                SlidingMenu.SLIDING_CONTENT,true);
-        //菜单view
-        View view = View.inflate(mHomeActivity, R.layout.location, null);
-        mSlidingMenu.setMenu(view);
-        gv_location = view.findViewById(R.id.gv_location);
-        gv_location.setOnItemClickListener(this);
+//        mSlidingMenu = new SlidingMenu(mHomeActivity);
+//        mSlidingMenu.setMode(SlidingMenu.LEFT);
+//        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+//        mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width);
+//        mSlidingMenu.setShadowDrawable(R.drawable.shadow);
+//        mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//        mSlidingMenu.setFadeDegree(0.35f);
+//
+//        mSlidingMenu.attachToActivity(mHomeActivity,
+//                SlidingMenu.SLIDING_CONTENT,true);
+//        //菜单view
+//        View view = View.inflate(mHomeActivity, R.layout.location, null);
+//        mSlidingMenu.setMenu(view);
+//        gv_location = view.findViewById(R.id.gv_location);
+//        gv_location.setOnItemClickListener(this);
     }
 
     /**
@@ -208,79 +224,121 @@ public class HomeFragment extends BaseFragment implements
         mTitleBar.setTitleText("首页");
         mTitleBar.getLeftCtv().setVisibility(View.VISIBLE);
         mTitleBar.getRightCtv().setVisibility(View.VISIBLE);
+
+        //设置广告Banner
+        mCbBanner.setOnItemClickListener(this);
     }
 
     private void initRefView() {
         //设置刷新完成以后，headerview固定的时间
         xRefreshView.setPinnedTime(1000);
         xRefreshView.setPullLoadEnable(false);
+        xRefreshView.setMoveForHorizontal(true);//拦截横移事件
         xRefreshView.setCustomHeaderView(new SmileyHeaderView(getContext()));
         xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
 
             @Override
             public void onRefresh(boolean isPullDown) {
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        xRefreshView.stopRefresh();
-                    }
-                }, 2000);
+                //如果正在刷新，并且是人为的
+                if (isRefresh && isPullDown){
+                    SnackUtils.showSnack(mCbBanner,"别着急喔,正在拼命加载中...");
+                }else {
+                    isRefresh = true; //刷新
+                    initData();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!dataLoad){
+                                xRefreshView.stopRefresh();
+                                isRefresh = false;
+                                SnackUtils.showSnack(mCbBanner, "网络差～");
+                            }
+                        }
+                    }, 10 * 1000);
+                }
             }
-
             @Override
             public void onLoadMore(boolean isSilence) {
 
             }
         });
+        xRefreshView.startRefresh(); //刷新数据
+        isRefresh = true;
+        //如果超过10秒还没有停止刷新的话说明网络差
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!dataLoad){
+                    xRefreshView.stopRefresh();
+                    isRefresh = false;
+                    SnackUtils.showSnack(mCbBanner, "网络差～");
+                }
+            }
+        }, 10 * 1000);
     }
 
     @Override
     public void initData() {
+
+        //获取附近医院
+        poiUtils = new POIUtils(getContext(),this);
+        HospitalThread hospitalThread = new HospitalThread();
+        hospitalThread.start();
+        //
+
         ViewUtils.setBanner(mCbBanner, new ViewUtils.DefaultBannerHolder(), getAdData());
         //init doctor
-        mDoctorAdapter = new SimpleRecycleAdapter
-                (mHomeActivity, new HomeDoctorAdapterOption(), getData());
-        mPopularDoctorHelper.mRvContent.setAdapter(mDoctorAdapter);
+        getDoctorInfo();
 
-        //init hospital
-        mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
-                , new HomeHospitalAdapterOption(), getHData());
-        mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
 
         //init essay
         getEssay();
 
 
         mGridAdapter = new GridLocationAdapter(mHomeActivity,getLocationData());
-        gv_location.setAdapter(mGridAdapter);
+        //gv_location.setAdapter(mGridAdapter);
         mGridAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 获取医生资讯
+     */
+    private void getDoctorInfo() {
+        App.mSueService.getDoctorInfo(0,3)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RData<List<DoctorBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(RData<List<DoctorBean>> data) {
+                        mDoctorAdapter = new SimpleRecycleAdapter
+                                (mHomeActivity, new HomeDoctorAdapterOption(), data.data);
+                        mPopularDoctorHelper.mRvContent.setAdapter(mDoctorAdapter);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private List<String> getLocationData() {
         List<String> data = new ArrayList<>();
-        data.add("江门");
-        data.add("广州");
-        data.add("深圳");
-        return data;
-    }
-
-    private List<HospitalBean> getHData() {
-        List<HospitalBean> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            data.add(new HospitalBean("人民医院"));
-        }
+        data.add("江门市");
         return data;
     }
 
 
-    private List<DoctorBean> getData() {
-        List<DoctorBean> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            data.add(new DoctorBean("Hades","骨科","副院长"));
-        }
-        return data;
-    }
 
     private List<AdBean> getAdData() {
         List<AdBean> data = new ArrayList<>();
@@ -310,6 +368,7 @@ public class HomeFragment extends BaseFragment implements
                         } else {
                             Log.d(TAG, "资讯数据获取为空");
                         }
+
                     }
 
                     @Override
@@ -319,7 +378,6 @@ public class HomeFragment extends BaseFragment implements
 
                     @Override
                     public void onComplete() {
-
                     }
                 });
 
@@ -330,7 +388,7 @@ public class HomeFragment extends BaseFragment implements
         if (mPopularDoctorHelper.isMoreIconOnClick(view)) {
             ToastUtils.showShort(mHomeActivity, "更多名医");
         } else if (mPopularHospitalHelper.isMoreIconOnClick(view)) {
-            ToastUtils.showShort(mHomeActivity, "更多医院");
+            EventBus.getDefault().post(HomeActivity.MORE_HOSPITAL);
         } else if (mPopularEssayHelper.isMoreIconOnClick(view)) {
             EventBus.getDefault().post(HomeActivity.MORE_NEWS);
         } else {
@@ -346,12 +404,54 @@ public class HomeFragment extends BaseFragment implements
         super.onHiddenChanged(hidden);
     }
 
+
+
+    /**
+     * 医院信息回调函数
+     * @param data
+     */
     @Override
-    public void onItemClick(AdapterView<?> adapterView,
-                            View view, int i, long l) {
-        String local = (String) mGridAdapter.getItem(i);
-        mTitleBar.setLeftText(local);
-        mSlidingMenu.toggle();
-        mHomeActivity.stopLocation();
+    public void onLoad(List<HospitalBean> data) {
+        //init hospital
+        mHospitalAdapter = new SimpleRecycleAdapter(mHomeActivity
+                , new HomeHospitalAdapterOption(), data);
+        mPopularHospitalHelper.mRvContent.setAdapter(mHospitalAdapter);
+        //停止刷新
+        xRefreshView.stopRefresh();
+        isRefresh = false;//不再刷新
+        dataLoad = true;//设置刷新完成
+    }
+
+    /**
+     * 广告Banner的点击事件
+     * @param position
+     */
+    @Override
+    public void onItemClick(int position) {
+        if (position == 1) {
+            RegisterActivity.startActivity(getContext());
+        }
+    }
+
+    final class HospitalThread extends Thread{
+        @Override
+        public void run() {
+            while(App.mShareP.getFloat(Values.LATITUDE,-1f) == -1f ){
+                //阻塞线程
+            }
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    poiUtils.getPOI("医院",App.mShareP.getString(
+                            Values.LAST_LOCATION,"江门市"
+                    ),0,3);
+                }
+            }, 150);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

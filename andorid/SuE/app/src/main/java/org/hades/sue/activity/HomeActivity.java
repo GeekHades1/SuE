@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.tencent.map.geolocation.TencentLocation;
 import com.tencent.map.geolocation.TencentLocationListener;
@@ -17,6 +18,7 @@ import com.tencent.map.geolocation.TencentLocationRequest;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.base.BaseActivity;
 import org.hades.sue.base.BaseFragment;
@@ -24,6 +26,7 @@ import org.hades.sue.fragment.BodyCheckFragment;
 import org.hades.sue.fragment.HomeFragment;
 import org.hades.sue.fragment.MineFragment;
 import org.hades.sue.presenter.IHomePresenter;
+import org.hades.sue.utils.Values;
 
 import butterknife.BindView;
 import cn.bingoogolapple.titlebar.BGATitleBar;
@@ -35,6 +38,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     private final String TAG = HomeActivity.class.getSimpleName();
 
     private BaseFragment fragments[] = new BaseFragment[3];
+
 
     private HomeFragment mHomeFragment = null;
     private BodyCheckFragment mBodyCheckFragment = null;
@@ -58,6 +62,9 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     @BindView(R.id.my_title_bar)
     BGATitleBar mTitleBar;
 
+    @BindView(R.id.fl_container)
+    FrameLayout container;
+
 
     @Override
     public void setPresenter(IHomePresenter presenter) {
@@ -74,6 +81,10 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         return mTitleBar;
     }
 
+    @Override
+    public void init() {
+        super.init();
+    }
 
     @Override
     public void initViews() {
@@ -210,6 +221,14 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             Log.d(TAG, "city = " + location.getCity());
             if (mCurPage == 0) {
                 mTitleBar.setLeftText(location.getCity());
+                App.mShareP.setString(Values.LAST_LOCATION, location.getCity());
+                //存入经纬度
+                App.mShareP.setFloat(Values.LATITUDE, (float)
+                        location.getLatitude());
+                App.mShareP.setFloat(Values.LONGITUDE, (float)
+                        location.getLongitude());
+//                Log.d(TAG,"la:"+location.getLatitude()+
+//                        "\n long = "+location.getLongitude());
                 locationManager.removeUpdates(this);
             }
         } else {
@@ -240,6 +259,7 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
 
         switch (action) {
             case MORE_HOSPITAL:
+                openMoreHospital();
                 break;
             case MORE_NEWS:
                 openMoreNews();
@@ -256,13 +276,24 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
     }
 
     /**
+     * 打开更多医院资讯
+     */
+
+    private void openMoreHospital() {
+        Intent intent = new Intent();
+        intent.setClass(this, MoreHospitalActivity.class);
+        startActivity(intent);
+        addTranslateXAnim();
+    }
+
+    /**
      * 打开二维码扫描Activity
      */
     private void openQRScanner() {
         Intent intent = new Intent();
         intent.setClass(this, QRScannerActivity.class);
         startActivity(intent);
-        addTranslateXYAnim();
+        //addScaleEnter();
     }
 
     /**
@@ -286,6 +317,11 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
         overridePendingTransition(R.anim.enter_x_y, R.anim.out_x_y);
     }
 
+    private void addScaleEnter(){
+        overridePendingTransition(R.anim.enter_scale,0);
+    }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -301,6 +337,28 @@ public class HomeActivity extends BaseActivity<IHomePresenter> implements
             EventBus.getDefault().unregister(this);
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void destroy() {
+        //做清理工作
+        //删除之前的定位位置
+        App.mShareP.remove(Values.LATITUDE);
+        App.mShareP.remove(Values.LONGITUDE);
+        Log.d(TAG, "onDestroy");
+        super.destroy();
+    }
+
 
 }
 

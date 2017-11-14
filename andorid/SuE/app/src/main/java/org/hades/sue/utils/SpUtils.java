@@ -112,6 +112,27 @@ public class SpUtils {
         return sp.getLong(key, defValue);
     }
 
+
+    /**
+     * put a float
+     * @param key
+     * @param value
+     */
+    public void setFloat(String key,float value){
+        sp.edit().putFloat(key, value).commit();
+    }
+
+    /**
+     * get a long
+     * @param key
+     * @param defValue
+     * @return
+     */
+    public float getFloat(String key,float defValue){
+        return sp.getFloat(key, defValue);
+    }
+
+
     /**
      * remove a node by key;
      * @param key

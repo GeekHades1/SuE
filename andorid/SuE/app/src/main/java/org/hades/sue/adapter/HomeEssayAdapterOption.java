@@ -1,6 +1,5 @@
 package org.hades.sue.adapter;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +27,6 @@ public class HomeEssayAdapterOption extends SimpleRecycleAdapter.
     public void setViewHolder(HeathNews itemData, int position, @NonNull HeaderRecycleViewHolder holder) {
 
         TextView tvReserve = holder.getView(R.id.tv_popular_essay);
-        if (true){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                tvReserve.setCompoundDrawables(null
-                ,null,null,null);
-            }
-
-        }
         tvReserve.setText(itemData.title);
 
     }

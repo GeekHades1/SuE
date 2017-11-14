@@ -36,13 +36,13 @@ public class HomeDoctorAdapterOption extends SimpleRecycleAdapter.
             TextView tvName = holder.getView(R.id.tv_item_popular_doctor_name);
             TextView tvPro = holder.getView(R.id.tv_item_popular_doctor_pro);
             tvName.setText(itemData.name);
-            tvPro.setText(itemData.prof);
+            tvPro.setText(itemData.department);
             tvReserve.setText("预约");
 
             //预约操作
 
             Glide.with(App.mContext)
-                    .load(R.drawable.icon_normal_kobe)
+                    .load(itemData.img)
                     .into(ivDoctor);
         }
 
@@ -56,6 +56,5 @@ public class HomeDoctorAdapterOption extends SimpleRecycleAdapter.
     @Override
     public void onCreateViewEverytime(@NonNull View itemView, @NonNull ViewGroup parentView, @NonNull HeaderRecycleAdapter adapter, int viewType) {
         super.onCreateViewEverytime(itemView, parentView, adapter, viewType);
-        this.setAdjustCount(adapter.getItemCount());
     }
 }
