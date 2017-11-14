@@ -11,6 +11,8 @@ import org.hades.sue.base.BaseFragment;
 import org.hades.sue.bean.smartcheck.BaseAnswer;
 import org.hades.sue.bean.smartcheck.Question;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 
 /**
@@ -60,13 +62,15 @@ public class EntryFragment4Check extends BaseFragment implements
 
     @Override
     public void onClick(View v) {
-        baseAnswer.values = new BaseAnswer.EntryValues();
+        baseAnswer.values = new ArrayList<>();
+        BaseAnswer.EntryValues entryValues = new BaseAnswer.EntryValues();
         baseAnswer.questionId = entryQuestion.questionId;
-        baseAnswer.values.key = entryQuestion.entries.get(0).key;
+        entryValues.key = entryQuestion.entries.get(0).key;
         String value = mValue.getText().toString().trim();
-        baseAnswer.values.value = value.equals("") ?
+        entryValues.value = value.equals("") ?
                 entryQuestion.entries.get(0).value :
                 value;
+        baseAnswer.values.add(entryValues);
         EventBus.getDefault().post(baseAnswer);
     }
 

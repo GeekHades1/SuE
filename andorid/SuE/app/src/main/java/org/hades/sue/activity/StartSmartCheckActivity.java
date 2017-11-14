@@ -186,10 +186,11 @@ public class StartSmartCheckActivity extends BaseActivity {
      */
     private void resolveData(Question question) {
         //更换标题
-        mTitleBar.setTitleText(getFormatStepString(question.currentStep));
         if (question.nodeType.equals(QuestionHelper.NODETYPE_QUESTION)) {
+            mTitleBar.setTitleText(getFormatStepString(question.currentStep));
             resolveQuestion(question);
         } else if (question.nodeType.equals(QuestionHelper.NODETYPE_CONCLUSION)) {
+            mTitleBar.setTitleText(getString(R.string.smart_check));
             resolveConclusion(question);
         }
     }
@@ -200,7 +201,6 @@ public class StartSmartCheckActivity extends BaseActivity {
      * @param question
      */
     private void resolveConclusion(Question question) {
-        mTitleBar.setTitleText(getString(R.string.smart_check));
         replaceFragment(CONCLU_ID, question);
     }
 

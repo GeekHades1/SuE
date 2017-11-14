@@ -14,9 +14,9 @@ public class Values {
     /**
      * 智能确诊AppKey
      */
-    public static final String SMARTCHECK_APPKEY = "6332340e6a8c474ea8688ece83ca8c39";
+    public static final String TEST_SMARTCHECK_APPKEY = "6332340e6a8c474ea8688ece83ca8c39";
 
-    public static final String SMARTCHECK_APPKEY = 
+    public static final String SMARTCHECK_APPKEY = "d836a62caf1f413ca234bd80d2d02824";
 
     public static final String SNAME = "SuE";
 
