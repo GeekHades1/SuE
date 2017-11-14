@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import org.hades.sue.bean.BodyCheck;
+import org.hades.sue.bean.smartcheck.BodyCheck;
 import org.hades.sue.fragment.ExBodyCheckFragment;
 
 import java.util.List;

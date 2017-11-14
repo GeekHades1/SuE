@@ -6,4 +6,5 @@
     <item name="login_btn" type="id" />
     <item name="tv_register" type="id" />
     <item name="my_title_bar_back" type="id"/>
+    <item name="id_question_title" type="id"/>
 </resources>

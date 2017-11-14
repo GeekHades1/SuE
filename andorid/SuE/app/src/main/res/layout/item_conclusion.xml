@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--具体病症-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="病症："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+
+
+    </LinearLayout>
+    <!--end-->
+
+    <!--病状类别-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="病症分类："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_depart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+
+
+    </LinearLayout>
+    <!--end-->
+
+    <!--诊断结论-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="诊断结论："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+
+    </LinearLayout>
+    <!--end-->
+    <!--行动建议-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="处理建议："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+    </LinearLayout>
+    <!--end -->
+
+    <!--补充建议-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="补充建议："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_suggest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+    </LinearLayout>
+    <!--end-->
+
+    <!--紧急程度-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"
+            android:text="紧急程度（最高程度为1）："
+            />
+
+        <TextView
+            android:id="@+id/item_conclusion_emerge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/textSize_18"/>
+    </LinearLayout>
+
+
+
+</com.zhy.autolayout.AutoLinearLayout>

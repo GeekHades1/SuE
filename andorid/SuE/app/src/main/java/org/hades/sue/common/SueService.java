@@ -1,6 +1,6 @@
 package org.hades.sue.common;
 
-import org.hades.sue.bean.BodyCheck;
+import org.hades.sue.bean.smartcheck.BodyCheck;
 import org.hades.sue.bean.DoctorBean;
 import org.hades.sue.bean.HeathNews;
 import org.hades.sue.bean.LoginBean;

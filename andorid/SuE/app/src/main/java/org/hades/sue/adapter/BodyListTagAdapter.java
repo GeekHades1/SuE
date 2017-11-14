@@ -10,7 +10,7 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.hades.sue.R;
-import org.hades.sue.bean.BodyCheck;
+import org.hades.sue.bean.smartcheck.BodyCheck;
 
 import java.util.List;
 

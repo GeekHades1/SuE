@@ -8,7 +8,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.hades.sue.R;
 import org.hades.sue.adapter.BodyListTagAdapter;
 import org.hades.sue.base.BaseFragment;
-import org.hades.sue.bean.BodyCheck;
+import org.hades.sue.bean.smartcheck.BodyCheck;
 
 import java.util.List;
 import java.util.Set;

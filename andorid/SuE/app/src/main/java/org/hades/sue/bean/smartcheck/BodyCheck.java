@@ -1,4 +1,4 @@
-package org.hades.sue.bean;
+package org.hades.sue.bean.smartcheck;
 
 /**
  * Created by Hades on 2017/11/8.

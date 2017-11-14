@@ -5,7 +5,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,14 +85,11 @@ public class BodyCheckModuleView extends LinearLayout implements BodyCheckModule
         mDetailsTv.setText(text);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(MotionEvent.ACTION_DOWN == event.getAction()){
-            if (!mAnim.isStarted()){
-                mAnim.startAnim();
-            }
+
+    public void startAnim(){
+        if (!mAnim.isStarted()) {
+            mAnim.startAnim();
         }
-        return super.onTouchEvent(event);
     }
 
 

@@ -11,6 +11,13 @@ public class Values {
      */
     public static final String BASE_URL = "http://120.27.126.45:8080/sue/";
 
+    /**
+     * 智能确诊AppKey
+     */
+    public static final String SMARTCHECK_APPKEY = "6332340e6a8c474ea8688ece83ca8c39";
+
+    public static final String SMARTCHECK_APPKEY = 
+
     public static final String SNAME = "SuE";
 
     /**

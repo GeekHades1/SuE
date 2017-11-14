@@ -16,8 +16,11 @@ import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.adapter.ExBodyCheckAdapter;
 import org.hades.sue.base.BaseActivity;
-import org.hades.sue.bean.BodyCheck;
+import org.hades.sue.bean.smartcheck.BodyCheck;
 import org.hades.sue.bean.RData;
+import org.hades.sue.bean.smartcheck.CheckInfo;
+import org.hades.sue.bean.smartcheck.StartSmartCheck;
+import org.hades.sue.common.SmartCheckService;
 import org.hades.sue.utils.Logger;
 import org.hades.sue.utils.SnackUtils;
 import org.hades.sue.view.MyTabLayout;
@@ -34,6 +37,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BeforeBodyCheckActivity extends BaseActivity {
 
@@ -49,14 +55,16 @@ public class BeforeBodyCheckActivity extends BaseActivity {
     ViewPager mViewPager;
 
 
-    private List<List<BodyCheck>>  cacheList;
+    private List<List<BodyCheck>> cacheList;
 
     private ExBodyCheckAdapter mAdapter;
 
-    private ProgressDialog dialog ;
+    private ProgressDialog dialog;
 
-    public static void startActivity(Context context){
-        context.startActivity(new Intent(context,BeforeBodyCheckActivity.class));
+    private SmartCheckService mService;
+
+    public static void startActivity(Context context) {
+        context.startActivity(new Intent(context, BeforeBodyCheckActivity.class));
     }
 
     @Override
@@ -99,7 +107,7 @@ public class BeforeBodyCheckActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         dialog.dismiss();
-                        SnackUtils.showSnack(mViewPager,"网络异常!");
+                        SnackUtils.showSnack(mViewPager, "网络异常!");
                     }
 
                     @Override
@@ -111,6 +119,7 @@ public class BeforeBodyCheckActivity extends BaseActivity {
 
     /**
      * 将data转换成合适的data
+     *
      * @param data
      */
     private void convertBodyList(final List<BodyCheck> data) {
@@ -135,7 +144,7 @@ public class BeforeBodyCheckActivity extends BaseActivity {
                     }
                     sub.add(item);
                 }
-                Logger.d(TAG,"size = "+result.size());
+                Logger.d(TAG, "size = " + result.size());
                 e.onNext(result);
             }
         }).subscribeOn(Schedulers.newThread())
@@ -155,7 +164,7 @@ public class BeforeBodyCheckActivity extends BaseActivity {
                                 lists);
                         mViewPager.setAdapter(mAdapter);
                         mTablayout.setupWithViewPager(mViewPager);
-                        Logger.d(TAG,"table count = "+mTablayout.getTabCount());
+                        Logger.d(TAG, "table count = " + mTablayout.getTabCount());
                     }
 
                     @Override
@@ -197,13 +206,21 @@ public class BeforeBodyCheckActivity extends BaseActivity {
 
     private void back() {
         this.finish();
-        overridePendingTransition(0,R.anim.out_scale);
+        overridePendingTransition(0, R.anim.out_scale);
     }
 
     @Override
     public void initData() {
         dialog = ProgressDialog.show(this,
                 "", "加载中...");
+        //初始化服务器请求
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SmartCheckService.BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mService = retrofit.create(SmartCheckService.class);
+
         initContent();
     }
 
@@ -217,18 +234,46 @@ public class BeforeBodyCheckActivity extends BaseActivity {
 
     /**
      * fragment点击响事件
+     *
      * @param point
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTagClickBack(Point point){
-        BodyCheck select = cacheList.get(point.x)
+    public void onTagClickBack(Point point) {
+        final BodyCheck select = cacheList.get(point.x)
                 .get(point.y);
         new AlertDialog.Builder(this)
                 .setMessage("你选择的身体表现症状是：" + select.symptom + "\n确定开始诊断吗？")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        mService.startCheck(select.symptomId)
+                                .subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<StartSmartCheck<CheckInfo>>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
 
+                                    }
+
+                                    @Override
+                                    public void onNext(StartSmartCheck<CheckInfo> data) {
+                                        Logger.d(TAG, data.toString()); //成功
+                                        StartSmartCheckActivity.startActivity(
+                                                BeforeBodyCheckActivity.this
+                                                , data.result);
+                                        BeforeBodyCheckActivity.this.finish();
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

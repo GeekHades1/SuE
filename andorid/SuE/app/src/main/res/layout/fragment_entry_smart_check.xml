@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@id/id_question_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100px"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textSize_18"
+            android:textStyle="bold"
+            tools:text="asdasdasdasdadasdadadadasasdasds" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/id_question_title"
+            android:layout_marginTop="@dimen/padding_30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp">
+
+            <include layout="@layout/item_entry_smart_check" />
+
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+        <TextView
+            android:id="@+id/commit_btn"
+            style="@style/tv_layout_popular_module_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/padding_30dp"
+            android:layout_marginTop="@dimen/padding_20dp"
+            android:padding="@dimen/padding_15dp"
+            android:text="下一步"
+            android:textSize="17sp" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

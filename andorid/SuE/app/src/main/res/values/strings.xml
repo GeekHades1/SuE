@@ -30,4 +30,6 @@
     <string name="login_btn_text">登录\\注册</string>
 
     <string name="smart_check">智能确诊</string>
+    <string name="smart_check_step">第 %d 题</string>
+    <string name="check_result">诊断结果</string>
 </resources>

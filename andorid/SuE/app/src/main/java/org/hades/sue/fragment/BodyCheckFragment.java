@@ -4,10 +4,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
+import org.hades.sue.App;
 import org.hades.sue.R;
 import org.hades.sue.activity.BeforeBodyCheckActivity;
 import org.hades.sue.activity.MonthBodyCheckActivity;
 import org.hades.sue.base.BaseFragment;
+import org.hades.sue.utils.SnackUtils;
+import org.hades.sue.utils.Values;
 import org.hades.sue.view.BodyCheckModuleView;
 
 import butterknife.BindView;
@@ -87,23 +90,45 @@ public class BodyCheckFragment extends BaseFragment implements View.OnClickListe
         mMonthCheck.setClickable(false);
         mBeforeSym.setClickable(false);
         if (view.getId() == R.id.item_bodycheck_month) {
-            myHandler.postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            MonthBodyCheckActivity.startActivity(mHomeActivity);
+            if (App.mShareP.getBoolean(Values.isLogin, false)) {
+                //登陆之后
+                mMonthCheck.startAnim();
+                myHandler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                MonthBodyCheckActivity.startActivity(mHomeActivity);
+                            }
                         }
-                    }
-            ,200);
+                        ,200);
+            }else {
+                mMonthCheck.setEnabled(true);
+                mBeforeSym.setEnabled(true);
+                mMonthCheck.setClickable(true);
+                mBeforeSym.setClickable(true);
+                SnackUtils.showSnack(mBeforeSym,"请先登陆");
+            }
+
         } else if (view.getId() == R.id.item_bodycheck_before_sym) {
-            myHandler.postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            BeforeBodyCheckActivity.startActivity(mHomeActivity);
+            if (App.mShareP.getBoolean(Values.isLogin, false)) {
+                //登陆之后
+                mBeforeSym.startAnim();
+                myHandler.postDelayed(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                BeforeBodyCheckActivity.startActivity(mHomeActivity);
+                            }
                         }
-                    }
-                    ,200);
+                        ,200);
+            }else {
+                mMonthCheck.setEnabled(true);
+                mBeforeSym.setEnabled(true);
+                mMonthCheck.setClickable(true);
+                mBeforeSym.setClickable(true);
+                SnackUtils.showSnack(mBeforeSym,"请先登陆");
+            }
+
         }
     }
 

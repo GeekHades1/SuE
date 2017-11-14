@@ -3,24 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.hades.sue">
 
-
     <!-- 极光推送 -->
     <permission
         android:name="org.hades.sue.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="org.hades.sue.permission.JPUSH_MESSAGE" />
 
-    <!--允许应用挂载/卸载 外部文件系统。-->
+    <!-- 允许应用挂载/卸载 外部文件系统。 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!--允许应用写入外部存储。-->
+    <!-- 允许应用写入外部存储。 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许应用读取外部存储。-->
+    <!-- 允许应用读取外部存储。 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--允许应用读写系统设置项。-->
+    <!-- 允许应用读写系统设置项。 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!--允许应用在手机屏幕关闭后后台进程仍然运行-->
+    <!-- 允许应用在手机屏幕关闭后后台进程仍然运行 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--允许应用可以接收点亮屏幕或解锁广播。-->
+    <!-- 允许应用可以接收点亮屏幕或解锁广播。 -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <!-- 通过GPS得到精确位置 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -55,12 +55,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <service android:name="cn.jpush.android.service.PushService"
+        <service
+            android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
-            tools:node="replace" >
-        </service>
-
+            tools:node="replace"></service>
 
         <activity
             android:name=".activity.SplashActivity"
@@ -74,7 +72,6 @@
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -98,11 +95,12 @@
         <activity
             android:name=".activity.QRScannerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MoreHospitalActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.MoreHospitalActivity"
+            android:screenOrientation="portrait" />
 
-
+        <activity android:name=".activity.StartSmartCheckActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="TencentMapSDK"
@@ -120,6 +118,7 @@
         <meta-data
             android:name="design_height"
             android:value="1920" />
+
     </application>
 
 </manifest>

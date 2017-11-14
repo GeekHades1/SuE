@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".activity.StartSmartCheckActivity">
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <cn.bingoogolapple.titlebar.BGATitleBar
+            android:id="@+id/my_title_bar"
+            style="@style/TitleBar"
+            app:bgatitlebar_leftDrawable="@drawable/de_title_back"
+            app:bgatitlebar_titleText="@string/app_name" />
+
+        <FrameLayout
+            android:padding="@dimen/padding_10dp"
+            android:id="@id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
